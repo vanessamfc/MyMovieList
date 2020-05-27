@@ -37,20 +37,24 @@ function Home() {
 
   return (
     <Container>
-      <DebounceInput
-        type="text"
-        value={search}
-        minLength={3}
-        debounceTimeout={300}
-        onChange={(e) => setSearch(e.target.value)}
-      />
-      <h1>{search}</h1>
-      {movies?.map((movie) => (
-        <Link to={`/movie/${movie.imdbID}`}>
-          <h1>{movie.Title}</h1>
-          <img src={movie.Poster} alt="movie poster" />
-        </Link>
-      ))}
+      <div>
+        <DebounceInput
+          type="text"
+          value={search}
+          minLength={3}
+          debounceTimeout={300}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </div>
+      <div>
+        <h1>{search}</h1>
+        {movies?.map((movie) => (
+          <Link to={`/movie/${movie.imdbID}`}>
+            <img src={movie.Poster} alt="movie poster" />
+            <h1>{movie.Title}</h1>
+          </Link>
+        ))}
+      </div>
     </Container>
   );
 }

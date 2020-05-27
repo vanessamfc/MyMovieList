@@ -4,8 +4,10 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addMovieToWatch } from '../../store/modules/toWatch/actions';
 import { Movie } from '../../Interfaces';
+import { Button } from '@material-ui/core';
 
-// import { Container } from './styles';
+import { Container } from './styles';
+import { addWatchedMovie } from '../../store/modules/watched/actions';
 
 interface MyMovieListState {
   toWatch: {
@@ -47,35 +49,54 @@ function MovieInfo() {
       dispatch(addMovieToWatch(movie));
     }
   }
+  function handleAddWatchedMovie() {
+    if (movie) {
+      dispatch(addWatchedMovie(movie));
+    }
+  }
 
   return (
-    <>
+    <Container>
       <div>
         <h1>{movie?.Title}</h1>
-        <img src={movie?.Poster} alt="" />
-        <p>{movie?.Plot}</p>
-        <p>
-          {movie?.Ratings[0].Source}: {movie?.Ratings[0].Value}
-        </p>
-        <p>
-          {movie?.Ratings[1].Source}: {movie?.Ratings[1].Value}
-        </p>
-        <span>{movie?.Genre}, </span>
-        <span>{movie?.Awards}</span>
       </div>
       <div>
-        <button type="button">watched</button>
-        <button
+        <div>
+          <img src={movie?.Poster} alt="" />
+        </div>
+        <div>
+          <p>{movie?.Plot}</p>
+          <>
+            {movie?.Ratings.map((item) => (
+              <p>
+                {item.Source}:{item.Value}
+              </p>
+            ))}
+          </>
+          <span>{movie?.Genre}, </span>
+          <span>{movie?.Awards}</span>
+        </div>
+      </div>
+      <div>
+        <Button
           disabled={existMovie}
           type="button"
           onClick={() => {
             handleSubmit();
           }}
+          variant="contained"
         >
           plan to watch
-        </button>
+        </Button>
+        <Button
+          disabled={existMovie}
+          type="button"
+          onClick={() => handleAddWatchedMovie()}
+        >
+          watched
+        </Button>
       </div>
-    </>
+    </Container>
   );
 }
 

@@ -5,32 +5,28 @@ export const Container = styled.div`
   width: 100vw;
   background-color: #424242;
   display: flex;
+  color: #fff;
   flex-direction: column;
-  overflow-x: hidden;
-  overflow-y: scroll;
   justify-content: center;
   align-items: center;
-  > div:first-child {
+  > div:nth-child(1) {
     display: flex;
+    > h1 {
+      font-size: 50px;
+    }
   }
-  > div:last-child {
+  > div:nth-child(2) {
+    width: 1200px;
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
-    > a {
-      margin: 10px;
-      text-decoration: none;
-
-      font-size: 10px;
-      color: #fff;
-
+    align-items: center;
+    > div:first-child {
       > img {
-        width: 200px;
-        height: 290px;
-      }
-      > h1 {
-        text-align: justify;
       }
     }
+    > div:last-child {
+    }
+  }
+  > div:nth-child(3) {
   }
 `;
