@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-
+import { Container } from './styles';
 import { DebounceInput } from 'react-debounce-input';
 
 interface OmdbResponse {
@@ -36,7 +36,7 @@ function Home() {
   }, [getMoviesCallback]);
 
   return (
-    <>
+    <Container>
       <DebounceInput
         type="text"
         value={search}
@@ -51,7 +51,7 @@ function Home() {
           <img src={movie.Poster} alt="movie poster" />
         </Link>
       ))}
-    </>
+    </Container>
   );
 }
 

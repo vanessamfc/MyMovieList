@@ -31,6 +31,7 @@ export default function watchedMovie(
         }
         break;
       }
+      case '@toWatch/ADD_MOVIE_TO_WATCH':
       case '@watched/REMOVE_WATCHED_MOVIE': {
         const newArray = draft.watchedMovie.filter(
           (item) => item.imdbID !== action.payload.data.imdbID
