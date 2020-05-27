@@ -1,8 +1,6 @@
 import { combineReducers } from 'redux';
-import toWatch from './toWatch/reducer';
-import watched from './watched/reducer';
+import movie from './movie/reducer';
 
 export default combineReducers({
-  toWatch,
-  watched,
+  movie,
 });

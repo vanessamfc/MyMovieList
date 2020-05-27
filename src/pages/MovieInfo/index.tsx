@@ -2,18 +2,14 @@ import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addMovieToWatch } from '../../store/modules/toWatch/actions';
-import { Movie } from '../../Interfaces';
+import {
+  addMovieToWatch,
+  addMovieWatched,
+} from '../../store/modules/movie/actions';
+import { Movie, MyMovieListState } from '../../Interfaces';
 import { Button } from '@material-ui/core';
 
 import { Container } from './styles';
-import { addWatchedMovie } from '../../store/modules/watched/actions';
-
-interface MyMovieListState {
-  toWatch: {
-    toWatchList: Movie[];
-  };
-}
 
 function MovieInfo() {
   const { id } = useParams();
@@ -21,7 +17,7 @@ function MovieInfo() {
 
   const dispatch = useDispatch();
   const movies = useSelector<MyMovieListState, Movie[]>(
-    (state) => state.toWatch.toWatchList
+    (state) => state.movie.myMoviesList
   );
 
   const getMoviesCallback = useCallback(async () => {
@@ -41,7 +37,7 @@ function MovieInfo() {
 
   const existMovie = useMemo(() => {
     const find = movies.find((item) => item.imdbID === id);
-    return !!find;
+    return find;
   }, [movies, id]);
 
   function handleSubmit() {
@@ -51,7 +47,7 @@ function MovieInfo() {
   }
   function handleAddWatchedMovie() {
     if (movie) {
-      dispatch(addWatchedMovie(movie));
+      dispatch(addMovieWatched(movie));
     }
   }
 
@@ -79,7 +75,7 @@ function MovieInfo() {
       </div>
       <div>
         <Button
-          disabled={existMovie}
+          disabled={existMovie?.watched === false}
           type="button"
           onClick={() => {
             handleSubmit();
@@ -89,7 +85,7 @@ function MovieInfo() {
           plan to watch
         </Button>
         <Button
-          disabled={existMovie}
+          disabled={existMovie?.watched === true}
           type="button"
           onClick={() => handleAddWatchedMovie()}
         >

@@ -1,22 +1,25 @@
-import React, { useEffect } from 'react';
-import { Movie } from '../../Interfaces';
+import React, { useEffect, useMemo } from 'react';
+import { Movie, MyMovieListState } from '../../Interfaces';
 
 import { useDispatch, useSelector } from 'react-redux';
+import {
+  removeMovieToWatch,
+  addMovieWatched,
+} from '../../store/modules/movie/actions';
 
-import { removeMovieToWatch } from '../../store/modules/toWatch/actions';
-import { addWatchedMovie } from '../../store/modules/watched/actions';
 // import { Container } from './styles';
-interface MyMovieListState {
-  toWatch: {
-    toWatchList: Movie[];
-  };
-}
 
 function PlanToWatchList() {
   const dispatch = useDispatch();
   const movies = useSelector<MyMovieListState, Movie[]>(
-    (state) => state.toWatch.toWatchList
+    (state) => state.movie.myMoviesList
   );
+
+  const planToWatcherList = useMemo(
+    () => movies.filter((item) => item.watched === false),
+    [movies]
+  );
+
   useEffect(() => {
     console.log(movies);
   }, [movies]);
@@ -25,13 +28,13 @@ function PlanToWatchList() {
     dispatch(removeMovieToWatch(movie));
   }
   function handleAddWatchedMovie(movie: Movie) {
-    dispatch(addWatchedMovie(movie));
+    dispatch(addMovieWatched(movie));
   }
 
   return (
     <div>
       <ul>
-        {movies.map((movie) => (
+        {planToWatcherList.map((movie) => (
           <>
             <li key={movie.imdbID}>{movie.Title}</li>
             <button
