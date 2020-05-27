@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Container } from './styles';
 import { DebounceInput } from 'react-debounce-input';
+import PerfectScrollbar from 'react-perfect-scrollbar';
 
 interface OmdbResponse {
   Search: Movies[];
@@ -46,15 +47,14 @@ function Home() {
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
-      <div>
-        <h1>{search}</h1>
+      <PerfectScrollbar>
         {movies?.map((movie) => (
           <Link to={`/movie/${movie.imdbID}`}>
             <img src={movie.Poster} alt="movie poster" />
             <h1>{movie.Title}</h1>
           </Link>
         ))}
-      </div>
+      </PerfectScrollbar>
     </Container>
   );
 }

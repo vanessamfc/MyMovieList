@@ -15,8 +15,8 @@ export const Container = styled.div`
   }
   > div:last-child {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    max-height: 370px;
+    max-width: 800px;
     > a {
       margin: 10px;
       text-decoration: none;
@@ -27,9 +27,6 @@ export const Container = styled.div`
       > img {
         width: 200px;
         height: 290px;
-      }
-      > h1 {
-        text-align: justify;
       }
     }
   }
