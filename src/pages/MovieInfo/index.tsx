@@ -7,9 +7,7 @@ import {
   addMovieWatched,
 } from '../../store/modules/movie/actions';
 import { Movie, MyMovieListState } from '../../Interfaces';
-import { Button } from '@material-ui/core';
-
-import { Container } from './styles';
+import { Container, StyledButton } from './styles';
 
 function MovieInfo() {
   const { id } = useParams();
@@ -62,6 +60,7 @@ function MovieInfo() {
         </div>
         <div>
           <p>{movie?.Plot}</p>
+          <h1>Ratings:</h1>
           <>
             {movie?.Ratings.map((item) => (
               <p>
@@ -69,28 +68,32 @@ function MovieInfo() {
               </p>
             ))}
           </>
+
           <span>{movie?.Genre}, </span>
           <span>{movie?.Awards}</span>
         </div>
       </div>
       <div>
-        <Button
+        <StyledButton
           disabled={existMovie?.watched === false}
           type="button"
+          color="primary"
           onClick={() => {
             handleSubmit();
           }}
           variant="contained"
         >
           plan to watch
-        </Button>
-        <Button
+        </StyledButton>
+        <StyledButton
+          color="primary"
+          variant="contained"
           disabled={existMovie?.watched === true}
           type="button"
           onClick={() => handleAddWatchedMovie()}
         >
           watched
-        </Button>
+        </StyledButton>
       </div>
     </Container>
   );

@@ -19,13 +19,14 @@ export default createGlobalStyle`
     padding: 0;
     outline: 0;
     box-sizing: border-box;
+    
   }
   body {
     background: #1b1b1b;
     -webkit-font-smoothing: antialiased;
   }
   body, input, button, textarea {
-    font-family: Helvetica, sans-serif;
+    font-family: 'Roboto', sans-serif;
     color:#424242;
   }
   #root {
@@ -33,6 +34,7 @@ export default createGlobalStyle`
     margin: 0 auto;
     display: flex;
     justify-content: center;
+    flex-direction:column;
   }
   button {
     cursor: pointer;

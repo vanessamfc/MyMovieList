@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { Container } from './styles';
-import { DebounceInput } from 'react-debounce-input';
+import { Container, StyledInput } from './styles';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 
 interface OmdbResponse {
@@ -39,12 +38,15 @@ function Home() {
   return (
     <Container>
       <div>
-        <DebounceInput
+        <h1>Search for a movie!</h1>
+        <StyledInput
           type="text"
           value={search}
           minLength={3}
           debounceTimeout={300}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setSearch(e.target.value)
+          }
         />
       </div>
       <PerfectScrollbar>

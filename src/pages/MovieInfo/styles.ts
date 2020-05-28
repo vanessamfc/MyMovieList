@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { Button } from '@material-ui/core';
+import themes from '../../styles/themes';
 
 export const Container = styled.div`
   height: 100vh;
@@ -12,21 +14,45 @@ export const Container = styled.div`
   > div:nth-child(1) {
     display: flex;
     > h1 {
-      font-size: 50px;
+      font-size: 40px;
     }
   }
   > div:nth-child(2) {
-    width: 1200px;
+    max-width: 800px;
     display: flex;
     justify-content: center;
     align-items: center;
     > div:first-child {
       > img {
+        height: 400px;
+        box-shadow: 0px 0px 20px 0px rgba(0, 0, 0);
+        margin-right: 20px;
       }
     }
     > div:last-child {
+      display: flex;
+      flex-direction: column;
+      padding-left: 10px;
+      > p {
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+      > h1 {
+        font-size: 25px;
+      }
+      > span {
+        margin: 5px 5px 5px 0;
+      }
     }
   }
   > div:nth-child(3) {
+    display: flex;
+
+    margin-top: 15px;
   }
+`;
+
+export const StyledButton = styled(Button)`
+  margin-left: 15px !important;
+  color: ${themes.palette.primary.main};
 `;

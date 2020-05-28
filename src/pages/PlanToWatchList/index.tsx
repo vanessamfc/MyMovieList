@@ -7,7 +7,7 @@ import {
   addMovieWatched,
 } from '../../store/modules/movie/actions';
 
-// import { Container } from './styles';
+import { Container } from './styles';
 
 function PlanToWatchList() {
   const dispatch = useDispatch();
