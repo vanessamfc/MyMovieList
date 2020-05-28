@@ -7,7 +7,8 @@ import {
   addMovieWatched,
 } from '../../store/modules/movie/actions';
 
-import { Container } from './styles';
+import { Container, StyledButton } from './styles';
+import { Link } from 'react-router-dom';
 
 function PlanToWatchList() {
   const dispatch = useDispatch();
@@ -32,31 +33,38 @@ function PlanToWatchList() {
   }
 
   return (
-    <div>
+    <Container>
       <ul>
         {planToWatcherList.map((movie) => (
-          <>
-            <li key={movie.imdbID}>{movie.Title}</li>
-            <button
-              type="button"
-              onClick={() => {
-                handleDelete(movie);
-              }}
-            >
-              delete
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                handleAddWatchedMovie(movie);
-              }}
-            >
-              watched
-            </button>
-          </>
+          <div>
+            <Link to={`/movie/${movie.imdbID}`}>
+              <img src={movie?.Poster} alt="" />
+              <li key={movie.imdbID}>{movie.Title}</li>
+            </Link>
+            <div>
+              <StyledButton
+                color="secondary"
+                type="button"
+                onClick={() => {
+                  handleAddWatchedMovie(movie);
+                }}
+              >
+                watched
+              </StyledButton>
+              <StyledButton
+                color="secondary"
+                type="button"
+                onClick={() => {
+                  handleDelete(movie);
+                }}
+              >
+                delete
+              </StyledButton>
+            </div>
+          </div>
         ))}
       </ul>
-    </div>
+    </Container>
   );
 }
 
