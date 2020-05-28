@@ -36,10 +36,10 @@ function PlanToWatchList() {
     <Container>
       <ul>
         {planToWatcherList.map((movie) => (
-          <div>
+          <div key={movie.imdbID}>
             <Link to={`/movie/${movie.imdbID}`}>
               <img src={movie?.Poster} alt="" />
-              <li key={movie.imdbID}>{movie.Title}</li>
+              <li>{movie.Title}</li>
             </Link>
             <div>
               <StyledButton

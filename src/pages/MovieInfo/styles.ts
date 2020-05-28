@@ -14,6 +14,7 @@ export const Container = styled.div`
     display: flex;
     > h1 {
       font-size: 40px;
+      margin-bottom: 20px;
     }
   }
   > div:nth-child(2) {
@@ -32,12 +33,15 @@ export const Container = styled.div`
       display: flex;
       flex-direction: column;
       padding-left: 10px;
-      > p {
-        font-size: 18px;
+      > p:first-child {
+        font-size: 19px;
         margin-bottom: 10px;
       }
+      > p {
+        font-size: 16px;
+      }
       > h1 {
-        font-size: 25px;
+        font-size: 23px;
       }
       > span {
         margin: 5px 5px 5px 0;

@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Container, StyledInput } from './styles';
 import PerfectScrollbar from 'react-perfect-scrollbar';
+import defaultImg from '../../assets/defaultImg.svg';
 
 interface OmdbResponse {
   Search: Movies[];
@@ -22,6 +23,8 @@ function Home() {
   const [movies, setMovies] = useState<Movies[]>([]);
   const [search, setSearch] = useState<string>('');
 
+  const debounceinput = useRef<HTMLInputElement>(null);
+
   const getMoviesCallback = useCallback(async () => {
     const {
       data: { Search },
@@ -35,6 +38,11 @@ function Home() {
     getMoviesCallback();
   }, [getMoviesCallback]);
 
+  useEffect(() => {
+    debounceinput.current?.setAttribute('spellcheck', 'false');
+    debounceinput.current?.focus();
+  }, []);
+
   return (
     <Container>
       <div>
@@ -42,6 +50,7 @@ function Home() {
         <StyledInput
           type="text"
           value={search}
+          inputRef={debounceinput}
           minLength={3}
           debounceTimeout={300}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -52,7 +61,12 @@ function Home() {
       <PerfectScrollbar>
         {movies?.map((movie) => (
           <Link to={`/movie/${movie.imdbID}`}>
-            <img src={movie.Poster} alt="movie poster" />
+            {movie.Poster === 'N/A' ? (
+              <img src={defaultImg} alt="movie poster" />
+            ) : (
+              <img src={movie.Poster} alt="movie poster" />
+            )}
+
             <h1>{movie.Title}</h1>
           </Link>
         ))}
