@@ -9,6 +9,7 @@ interface OmdbResponse {
   Search: Movies[];
   totalResults: string;
   Response: string;
+  Error: string;
 }
 
 interface Movies {
@@ -22,16 +23,22 @@ interface Movies {
 function Home() {
   const [movies, setMovies] = useState<Movies[]>([]);
   const [search, setSearch] = useState<string>('');
-
+  const [error, setError] = useState<boolean>(false);
   const debounceinput = useRef<HTMLInputElement>(null);
 
   const getMoviesCallback = useCallback(async () => {
     const {
-      data: { Search },
+      data: { Search, Error },
     } = await axios.get<OmdbResponse>(
       `http://www.omdbapi.com/?s=${search}&apikey=8efc0c42`
     );
-    setMovies(Search);
+
+    if (Error === 'Movie not found!') {
+      setError(true);
+    } else {
+      setMovies(Search);
+      setError(false);
+    }
   }, [search]);
 
   useEffect(() => {
@@ -59,17 +66,21 @@ function Home() {
         />
       </div>
       <PerfectScrollbar>
-        {movies?.map((movie) => (
-          <Link to={`/movie/${movie.imdbID}`}>
-            {movie.Poster === 'N/A' ? (
-              <img src={defaultImg} alt="movie poster" />
-            ) : (
-              <img src={movie.Poster} alt="movie poster" />
-            )}
+        {!error ? (
+          movies?.map((movie) => (
+            <Link to={`/movie/${movie.imdbID}`}>
+              {movie.Poster === 'N/A' ? (
+                <img src={defaultImg} alt="movie poster" />
+              ) : (
+                <img src={movie.Poster} alt="movie poster" />
+              )}
 
-            <h1>{movie.Title}</h1>
-          </Link>
-        ))}
+              <h1>{movie.Title}</h1>
+            </Link>
+          ))
+        ) : (
+          <h1>erro</h1>
+        )}
       </PerfectScrollbar>
     </Container>
   );
