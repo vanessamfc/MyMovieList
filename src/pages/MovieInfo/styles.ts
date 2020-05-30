@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { Button } from '@material-ui/core';
-import themes from '../../styles/themes';
 
 export const Container = styled.div`
   height: 100vh;
@@ -54,5 +53,4 @@ export const Container = styled.div`
 
 export const StyledButton = styled(Button)`
   margin-left: 15px !important;
-  color: ${themes.palette.primary.main};
 `;
