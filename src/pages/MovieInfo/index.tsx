@@ -64,7 +64,7 @@ function MovieInfo() {
           <>
             {movie?.Ratings.map((item) => (
               <p>
-                {item.Source}:{item.Value}
+                {item.Source}: {item.Value}
               </p>
             ))}
           </>

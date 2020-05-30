@@ -7,8 +7,8 @@ export const Container = styled.div`
   align-items: center;
   background-color: #424242;
   color: #fff;
-  height: 100vh;
-  width: 100vw;
+  padding: 60px 0;
+  min-height: 100vh;
   > ul {
     font-size: 20px;
     margin-top: 20px;

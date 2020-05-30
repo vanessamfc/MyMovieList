@@ -30,7 +30,6 @@ export default createGlobalStyle`
     color:#424242;
   }
   #root {
-    height: 100vh;
     margin: 0 auto;
     display: flex;
     justify-content: center;

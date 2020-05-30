@@ -9,6 +9,7 @@ export interface Movie {
   Genre: string;
   Ratings: Ratings[];
   watched: boolean;
+  Error: string;
 }
 
 export interface Ratings {
