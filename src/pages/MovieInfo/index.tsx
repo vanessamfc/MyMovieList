@@ -2,16 +2,12 @@ import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addMovieToWatch } from '../../store/modules/toWatch/actions';
-import { Movie } from '../../Interfaces';
-
-// import { Container } from './styles';
-
-interface MyMovieListState {
-  toWatch: {
-    toWatchList: Movie[];
-  };
-}
+import {
+  addMovieToWatch,
+  addMovieWatched,
+} from '../../store/modules/movie/actions';
+import { Movie, MyMovieListState } from '../../Interfaces';
+import { Container, StyledButton } from './styles';
 
 function MovieInfo() {
   const { id } = useParams();
@@ -19,7 +15,7 @@ function MovieInfo() {
 
   const dispatch = useDispatch();
   const movies = useSelector<MyMovieListState, Movie[]>(
-    (state) => state.toWatch.toWatchList
+    (state) => state.movie.myMoviesList
   );
 
   const getMoviesCallback = useCallback(async () => {
@@ -39,7 +35,7 @@ function MovieInfo() {
 
   const existMovie = useMemo(() => {
     const find = movies.find((item) => item.imdbID === id);
-    return !!find;
+    return find;
   }, [movies, id]);
 
   function handleSubmit() {
@@ -47,35 +43,59 @@ function MovieInfo() {
       dispatch(addMovieToWatch(movie));
     }
   }
+  function handleAddWatchedMovie() {
+    if (movie) {
+      dispatch(addMovieWatched(movie));
+    }
+  }
 
   return (
-    <>
+    <Container>
       <div>
         <h1>{movie?.Title}</h1>
-        <img src={movie?.Poster} alt="" />
-        <p>{movie?.Plot}</p>
-        <p>
-          {movie?.Ratings[0].Source}: {movie?.Ratings[0].Value}
-        </p>
-        <p>
-          {movie?.Ratings[1].Source}: {movie?.Ratings[1].Value}
-        </p>
-        <span>{movie?.Genre}, </span>
-        <span>{movie?.Awards}</span>
       </div>
       <div>
-        <button type="button">watched</button>
-        <button
-          disabled={existMovie}
+        <div>
+          <img src={movie?.Poster} alt="" />
+        </div>
+        <div>
+          <p>{movie?.Plot}</p>
+          <h1>Ratings:</h1>
+          <>
+            {movie?.Ratings.map((item) => (
+              <p>
+                {item.Source}:{item.Value}
+              </p>
+            ))}
+          </>
+
+          <span>{movie?.Genre}, </span>
+          <span>{movie?.Awards}</span>
+        </div>
+      </div>
+      <div>
+        <StyledButton
+          disabled={existMovie?.watched === false}
           type="button"
+          color="primary"
           onClick={() => {
             handleSubmit();
           }}
+          variant="contained"
         >
           plan to watch
-        </button>
+        </StyledButton>
+        <StyledButton
+          color="primary"
+          variant="contained"
+          disabled={existMovie?.watched === true}
+          type="button"
+          onClick={() => handleAddWatchedMovie()}
+        >
+          watched
+        </StyledButton>
       </div>
-    </>
+    </Container>
   );
 }
 

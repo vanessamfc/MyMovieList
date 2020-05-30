@@ -4,13 +4,16 @@ import Home from '../pages/Home';
 import MovieInfo from '../pages/MovieInfo';
 import Watched from '../pages/WatchedList';
 import PlanToWatch from '../pages/PlanToWatchList';
+import { StyledNavbar } from './styles';
 
 function Routes() {
   return (
     <BrowserRouter>
-      <Link to="/">home</Link>
-      <Link to="/watched-list">watched lsit</Link>
-      <Link to="/plan-to-watch-list">plant to watch</Link>
+      <StyledNavbar>
+        <Link to="/">Home </Link>
+        <Link to="/watched-list">Watched list </Link>
+        <Link to="/plan-to-watch-list">Plant to watch </Link>
+      </StyledNavbar>
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/movie/:id" component={MovieInfo} />

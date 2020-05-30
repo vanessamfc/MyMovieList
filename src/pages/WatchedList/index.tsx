@@ -1,30 +1,29 @@
-import React, { useEffect } from 'react';
-import { Movie } from '../../Interfaces';
+import React, { useEffect, useMemo } from 'react';
+import { Movie, MyMovieListState } from '../../Interfaces';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { removeWatchedMovie } from '../../store/modules/watched/actions';
-
-import { addMovieToWatch } from '../../store/modules/toWatch/actions';
-// import { Container } from './styles';
-interface MyMovieListState {
-  watched: {
-    watchedMovie: Movie[];
-  };
-}
-
-// import { Container } from './styles';
+import {
+  removeMovieToWatch,
+  addMovieToWatch,
+} from '../../store/modules/movie/actions';
 
 function WatchedList() {
   const dispatch = useDispatch();
   const movies = useSelector<MyMovieListState, Movie[]>(
-    (state) => state.watched.watchedMovie
+    (state) => state.movie.myMoviesList
   );
+
+  const watchedMovieList = useMemo(
+    () => movies.filter((item) => item.watched === true),
+    [movies]
+  );
+
   useEffect(() => {
     console.log(movies);
   }, [movies]);
 
   function handleDeleteWatchedMovie(movie: Movie) {
-    dispatch(removeWatchedMovie(movie));
+    dispatch(removeMovieToWatch(movie));
   }
   function handleAddToWatch(movie: Movie) {
     dispatch(addMovieToWatch(movie));
@@ -32,7 +31,7 @@ function WatchedList() {
   return (
     <div>
       <ul>
-        {movies.map((movie) => (
+        {watchedMovieList.map((movie) => (
           <>
             <li>{movie.Title}</li>
             <button type="button" onClick={() => handleAddToWatch(movie)}>

@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-
-import { DebounceInput } from 'react-debounce-input';
+import { Container, StyledInput } from './styles';
+import PerfectScrollbar from 'react-perfect-scrollbar';
 
 interface OmdbResponse {
   Search: Movies[];
@@ -36,22 +36,28 @@ function Home() {
   }, [getMoviesCallback]);
 
   return (
-    <>
-      <DebounceInput
-        type="text"
-        value={search}
-        minLength={3}
-        debounceTimeout={300}
-        onChange={(e) => setSearch(e.target.value)}
-      />
-      <h1>{search}</h1>
-      {movies?.map((movie) => (
-        <Link to={`/movie/${movie.imdbID}`}>
-          <h1>{movie.Title}</h1>
-          <img src={movie.Poster} alt="movie poster" />
-        </Link>
-      ))}
-    </>
+    <Container>
+      <div>
+        <h1>Search for a movie!</h1>
+        <StyledInput
+          type="text"
+          value={search}
+          minLength={3}
+          debounceTimeout={300}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setSearch(e.target.value)
+          }
+        />
+      </div>
+      <PerfectScrollbar>
+        {movies?.map((movie) => (
+          <Link to={`/movie/${movie.imdbID}`}>
+            <img src={movie.Poster} alt="movie poster" />
+            <h1>{movie.Title}</h1>
+          </Link>
+        ))}
+      </PerfectScrollbar>
+    </Container>
   );
 }
 
