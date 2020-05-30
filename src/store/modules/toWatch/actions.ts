@@ -7,4 +7,10 @@ function addMovieToWatch(data: Movie) {
   };
 }
 
-export { addMovieToWatch };
+function removeMovieToWatch(data: Movie) {
+  return {
+    type: '@toWatch/REMOVE_MOVIE_TO_WATCH',
+    payload: { data },
+  };
+}
+export { addMovieToWatch, removeMovieToWatch };

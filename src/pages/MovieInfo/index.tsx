@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,7 +18,7 @@ function MovieInfo() {
   const [movie, setMovie] = useState<Movie>();
 
   const dispatch = useDispatch();
-  const movies = useSelector<MyMovieListState>(
+  const movies = useSelector<MyMovieListState, Movie[]>(
     (state) => state.toWatch.toWatchList
   );
 
@@ -36,6 +36,11 @@ function MovieInfo() {
   useEffect(() => {
     console.log(movies);
   }, [movies]);
+
+  const existMovie = useMemo(() => {
+    const find = movies.find((item) => item.imdbID === id);
+    return !!find;
+  }, [movies, id]);
 
   function handleSubmit() {
     if (movie) {
@@ -61,6 +66,7 @@ function MovieInfo() {
       <div>
         <button type="button">watched</button>
         <button
+          disabled={existMovie}
           type="button"
           onClick={() => {
             handleSubmit();
