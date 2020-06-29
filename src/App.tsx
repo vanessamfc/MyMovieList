@@ -6,7 +6,9 @@ import { store, persistor } from './store/store';
 import GlobalStyle from './styles/global';
 import { ThemeProvider } from '@material-ui/core';
 import 'react-perfect-scrollbar/dist/css/styles.css';
+import 'react-toastify/dist/ReactToastify.min.css';
 import themes from './styles/themes';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
@@ -15,6 +17,7 @@ function App() {
         <ThemeProvider theme={themes}>
           <Routes />
           <GlobalStyle />
+          <ToastContainer autoClose={3000} />
         </ThemeProvider>
       </PersistGate>
     </Provider>
