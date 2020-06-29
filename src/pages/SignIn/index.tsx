@@ -58,8 +58,8 @@ export default function SingUp() {
           Sign Up
         </StyledButton>
         <div>
-          <span>Already have an account?</span>
-          <Link to="/">Sign In</Link>
+          <span>Dont have a account?</span>
+          <Link to="/sign-up">Sign Up</Link>
         </div>
       </div>
     </SignInContainer>
