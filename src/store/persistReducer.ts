@@ -6,7 +6,7 @@ export default (reducers: Reducer<any, any>) => {
     {
       key: 'myMovieList',
       storage,
-      whitelist: ['movie'],
+      whitelist: ['movie', 'user'],
     },
     reducers
   );

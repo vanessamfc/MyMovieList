@@ -1,17 +1,72 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
+import * as Yup from 'yup';
 import { StyledInput, SignUpContainer, StyledButton } from './styles';
 import theme from '../../styles/themes';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+
 export default function SingUp() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  async function handleSubmit() {
+    try {
+      const schema = Yup.object().shape({
+        name: Yup.string().required(),
+        email: Yup.string().required().email(),
+        password: Yup.string().required().min(6),
+      });
+
+      await schema.validate({ name, email, password }, { abortEarly: false });
+      console.log(schema);
+
+      const response = await axios.post('http://localhost:3333/user', {
+        name,
+        email,
+        password,
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+      toast.error('Invalid Credentials');
+    }
+  }
+
   return (
     <SignUpContainer>
       <div>
         <h1>Sign Up</h1>
-        <StyledInput fullWidth label="Name" variant="outlined"></StyledInput>
-        <input type="text" placeholder="E-mail" />
-        <input type="text" placeholder="Password" />
-        <StyledButton variant="contained" color="primary">
+        <input
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => {
+            setName(e.target.value);
+          }}
+        />
+        <input
+          type="text"
+          placeholder="E-mail"
+          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
+        />
+        <StyledButton
+          variant="contained"
+          color="primary"
+          onClick={handleSubmit}
+        >
           Sign Up
         </StyledButton>
         <div>

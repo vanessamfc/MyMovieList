@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Switch, Link } from 'react-router-dom';
 import Home from '../pages/Home';
 import MovieInfo from '../pages/MovieInfo';
 import Watched from '../pages/WatchedList';
@@ -7,6 +7,7 @@ import PlanToWatch from '../pages/PlanToWatchList';
 import SignUp from '../pages/SignUp';
 import SignIn from '../pages/SignIn';
 import { StyledNavbar } from './styles';
+import Route from './Route';
 
 function Routes() {
   return (
@@ -17,12 +18,12 @@ function Routes() {
         <Link to="/plan-to-watch-list">Plant to watch </Link>
       </StyledNavbar>
       <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/movie/:id" component={MovieInfo} />
-        <Route path="/watched-list" component={Watched} />
-        <Route path="/plan-to-watch-list" component={PlanToWatch} />
-        <Route path="/sign-up" component={SignUp} />
-        <Route path="/sign-In" component={SignIn} />
+        <Route path="/" exact Component={Home} />
+        <Route path="/movie/:id" Component={MovieInfo} />
+        <Route path="/watched-list" Component={Watched} />
+        <Route path="/plan-to-watch-list" Component={PlanToWatch} />
+        <Route path="/sign-up" Component={SignUp} />
+        <Route path="/sign-in" Component={SignIn} />
       </Switch>
     </BrowserRouter>
   );

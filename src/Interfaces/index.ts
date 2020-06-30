@@ -22,7 +22,11 @@ export interface MyMovieListState {
     myMoviesList: Movie[];
   };
 }
-
+export interface UserState {
+  user: {
+    token: '';
+  };
+}
 export interface User {
   id?: number;
   name: string;
