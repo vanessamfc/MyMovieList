@@ -62,8 +62,8 @@ function WatchedList() {
     try {
       const response = await axios.put(
         `http://localhost:3333/movies/${movie.movieId}`,
+        { status: 'PLAN_TO_WATCH' },
         {
-          params: { status: 'PLAN_TO_WATCH' },
           headers: { Authorization: `Bearer ${token}` },
         }
       );
