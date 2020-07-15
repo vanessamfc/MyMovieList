@@ -93,9 +93,6 @@ function MovieInfo() {
           disabled={existMovie?.watched === false}
           type="button"
           color="primary"
-          onClick={() => {
-            handleSubmit();
-          }}
           variant="contained"
         >
           plan to watch
@@ -105,7 +102,6 @@ function MovieInfo() {
           variant="contained"
           disabled={existMovie?.watched === true}
           type="button"
-          onClick={() => handleAddWatchedMovie()}
         >
           watched
         </StyledButton>
