@@ -1,11 +1,7 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Movie, MyMovieListState } from '../../Interfaces';
 
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  removeMovieToWatch,
-  addMovieWatched,
-} from '../../store/modules/movie/actions';
+import { useSelector } from 'react-redux';
 
 import { Container, StyledButton } from './styles';
 import { Link } from 'react-router-dom';
@@ -23,16 +19,8 @@ interface Data {
 function PlanToWatchList() {
   // @ts-ignore
   const token = useSelector((state) => state.user.token);
-  const movies = useSelector<MyMovieListState, Movie[]>(
-    (state) => state.movie.myMoviesList
-  );
 
   const [planToWatchMovies, setPlanToWatchMovies] = useState<Data[]>([]);
-
-  const planToWatcherList = useMemo(
-    () => movies.filter((item) => item.watched === false),
-    [movies]
-  );
 
   async function getPlanToWatchMovies() {
     try {
@@ -91,6 +79,7 @@ function PlanToWatchList() {
               <StyledButton
                 color="secondary"
                 type="button"
+                variant="outlined"
                 onClick={() => {
                   handleAddWatchedMovie(movie);
                 }}
@@ -100,6 +89,7 @@ function PlanToWatchList() {
               <StyledButton
                 color="secondary"
                 type="button"
+                variant="outlined"
                 onClick={() => {
                   handleDeletePlanToWatchMovie(movie);
                 }}

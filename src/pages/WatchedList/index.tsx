@@ -75,6 +75,7 @@ function WatchedList() {
             <div>
               <StyledButton
                 color="secondary"
+                variant="outlined"
                 type="button"
                 onClick={() => handleAddToWatch(movie)}
               >
@@ -82,6 +83,7 @@ function WatchedList() {
               </StyledButton>
               <StyledButton
                 color="secondary"
+                variant="outlined"
                 type="button"
                 onClick={() => handleDeleteWatchedMovie(movie)}
               >
