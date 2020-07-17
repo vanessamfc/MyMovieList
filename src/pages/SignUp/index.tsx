@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
-import { StyledInput, SignUpContainer, StyledButton } from './styles';
-import theme from '../../styles/themes';
+import { SignUpContainer, StyledButton } from './styles';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
