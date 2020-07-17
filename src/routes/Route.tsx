@@ -2,9 +2,9 @@ import React, { FC } from 'react';
 import { Route, Redirect, RouteProps } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { UserState } from '../Interfaces';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { MdExitToApp } from 'react-icons/md';
-import { StyledNavbar } from './styles';
+import { StyledNavbar, StyledNavLink } from './styles';
 import { logoutSuccess } from '../store/modules/user/actions';
 
 interface IRoutes extends RouteProps {
@@ -40,9 +40,13 @@ export default function RouteWrapper({
           {isPrivate && (
             <StyledNavbar>
               <div>
-                <Link to="/">Home </Link>
-                <Link to="/watched-list">Watched list </Link>
-                <Link to="/plan-to-watch-list">Plant to watch </Link>
+                <StyledNavLink to="/" exact>
+                  Home{' '}
+                </StyledNavLink>
+                <StyledNavLink to="/watched-list">Watched list </StyledNavLink>
+                <StyledNavLink to="/plan-to-watch-list">
+                  Plant to watch
+                </StyledNavLink>
               </div>
               <div>
                 <button onClick={handleLogout}>
