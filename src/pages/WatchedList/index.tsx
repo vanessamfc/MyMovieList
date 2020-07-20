@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Movie } from '../../Interfaces';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-
 import { Link } from 'react-router-dom';
 import { StyledButton, Container } from './styles';
 

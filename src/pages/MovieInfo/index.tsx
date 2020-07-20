@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+import { toast } from 'react-toastify';
 import { Movie } from '../../Interfaces';
 import { Container, StyledButton } from './styles';
 
@@ -55,6 +56,7 @@ function MovieInfo() {
         );
       }
       await getMovie();
+      toast.success('Movie added to your Watched List');
     } catch (error) {
       console.log(error);
     }
@@ -81,6 +83,7 @@ function MovieInfo() {
         );
       }
       await getMovie();
+      toast.success('Movie added to your Plant To Watch List');
     } catch (error) {
       console.log(error);
     }
