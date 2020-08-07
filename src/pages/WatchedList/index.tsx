@@ -1,11 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Movie, MyMovieListState } from '../../Interfaces';
 import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
-import {
-  removeMovieToWatch,
-  addMovieToWatch,
-} from '../../store/modules/movie/actions';
+import { useSelector } from 'react-redux';
+
 import { Link } from 'react-router-dom';
 import { StyledButton, Container } from './styles';
 
@@ -21,16 +18,8 @@ interface Data {
 function WatchedList() {
   // @ts-ignore
   const token = useSelector((state) => state.user.token);
-  const dispatch = useDispatch();
-  const movies = useSelector<MyMovieListState, Movie[]>(
-    (state) => state.movie.myMoviesList
-  );
-  const [watchedMovies, setWatchedMovies] = useState<Data[]>([]);
 
-  const watchedMovieList = useMemo(
-    () => movies.filter((item) => item.watched === true),
-    [movies]
-  );
+  const [watchedMovies, setWatchedMovies] = useState<Data[]>([]);
 
   async function getWatchedMovies() {
     try {
@@ -54,6 +43,7 @@ function WatchedList() {
       await axios.delete(`http://localhost:3333/movies/${movie.movieId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
+      await getWatchedMovies();
     } catch (error) {
       console.log(error);
     }
@@ -67,6 +57,7 @@ function WatchedList() {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
+      await getWatchedMovies();
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -84,6 +75,7 @@ function WatchedList() {
             <div>
               <StyledButton
                 color="secondary"
+                variant="outlined"
                 type="button"
                 onClick={() => handleAddToWatch(movie)}
               >
@@ -91,6 +83,7 @@ function WatchedList() {
               </StyledButton>
               <StyledButton
                 color="secondary"
+                variant="outlined"
                 type="button"
                 onClick={() => handleDeleteWatchedMovie(movie)}
               >

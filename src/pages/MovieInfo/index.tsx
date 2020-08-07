@@ -59,8 +59,22 @@ function MovieInfo() {
     } catch (error) {
       console.log(error);
     }
-    if (movie) {
-      dispatch(addMovieWatched(movie));
+  }
+
+  async function handleAddPlanToWatchMovie() {
+    try {
+      const response = await axios.post(
+        'http://localhost:3333/movies',
+        {
+          movieId: movie?.imdbID,
+          status: 'PLAN_TO_WATCH',
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      console.log(response);
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -90,22 +104,22 @@ function MovieInfo() {
       </div>
       <div>
         <StyledButton
-          disabled={existMovie?.watched === false}
           type="button"
           color="primary"
-          onClick={() => {
-            handleSubmit();
-          }}
           variant="contained"
+          onClick={() => {
+            handleAddPlanToWatchMovie();
+          }}
         >
           plan to watch
         </StyledButton>
         <StyledButton
           color="primary"
           variant="contained"
-          disabled={existMovie?.watched === true}
           type="button"
-          onClick={() => handleAddWatchedMovie()}
+          onClick={() => {
+            handleAddWatchedMovie();
+          }}
         >
           watched
         </StyledButton>

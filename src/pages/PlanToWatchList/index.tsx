@@ -1,11 +1,7 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Movie, MyMovieListState } from '../../Interfaces';
 
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  removeMovieToWatch,
-  addMovieWatched,
-} from '../../store/modules/movie/actions';
+import { useSelector } from 'react-redux';
 
 import { Container, StyledButton } from './styles';
 import { Link } from 'react-router-dom';
@@ -23,17 +19,8 @@ interface Data {
 function PlanToWatchList() {
   // @ts-ignore
   const token = useSelector((state) => state.user.token);
-  const dispatch = useDispatch();
-  const movies = useSelector<MyMovieListState, Movie[]>(
-    (state) => state.movie.myMoviesList
-  );
 
   const [planToWatchMovies, setPlanToWatchMovies] = useState<Data[]>([]);
-
-  const planToWatcherList = useMemo(
-    () => movies.filter((item) => item.watched === false),
-    [movies]
-  );
 
   async function getPlanToWatchMovies() {
     try {
@@ -49,11 +36,35 @@ function PlanToWatchList() {
   }
 
   useEffect(() => {
-    console.log(movies);
-  }, [movies]);
+    getPlanToWatchMovies();
+  }, []);
 
-  function handleDelete(movie: Data) {}
-  function handleAddWatchedMovie(movie: Data) {}
+  async function handleDeletePlanToWatchMovie(movie: Data) {
+    try {
+      await axios.delete(`http://localhost:3333/movies/${movie.movieId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      await getPlanToWatchMovies();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function handleAddWatchedMovie(movie: Data) {
+    try {
+      const response = await axios.put(
+        `http://localhost:3333/movies/${movie.movieId}`,
+        { status: 'WATCHED' },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      await getPlanToWatchMovies();
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <Container>
@@ -68,6 +79,7 @@ function PlanToWatchList() {
               <StyledButton
                 color="secondary"
                 type="button"
+                variant="outlined"
                 onClick={() => {
                   handleAddWatchedMovie(movie);
                 }}
@@ -77,8 +89,9 @@ function PlanToWatchList() {
               <StyledButton
                 color="secondary"
                 type="button"
+                variant="outlined"
                 onClick={() => {
-                  handleDelete(movie);
+                  handleDeletePlanToWatchMovie(movie);
                 }}
               >
                 delete

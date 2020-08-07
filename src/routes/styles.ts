@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
 export const StyledNavbar = styled.nav`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-areas: 'gap menu button';
+  grid-template-columns: 1fr 1fr 1fr;
+
   height: 60px;
   position: fixed;
   top: 0;
@@ -11,6 +12,7 @@ export const StyledNavbar = styled.nav`
   width: 100%;
   z-index: 300;
   > div:first-child {
+    grid-area: menu;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -34,8 +36,10 @@ export const StyledNavbar = styled.nav`
     }
   }
   div:last-child {
-    display: flex;
-    justify-content: flex-end;
+    grid-area: button;
+    justify-self: end;
+    align-self: center;
+    padding: 10px;
     > button {
       background-color: #e53935;
       border-style: none;
