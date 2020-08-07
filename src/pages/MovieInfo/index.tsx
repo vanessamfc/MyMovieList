@@ -6,10 +6,13 @@ import {
   addMovieToWatch,
   addMovieWatched,
 } from '../../store/modules/movie/actions';
+
 import { Movie, MyMovieListState } from '../../Interfaces';
 import { Container, StyledButton } from './styles';
 
 function MovieInfo() {
+  // @ts-ignore
+  const token = useSelector((state) => state.user.token);
   const { id } = useParams();
   const [movie, setMovie] = useState<Movie>();
 
@@ -29,9 +32,7 @@ function MovieInfo() {
     getMoviesCallback();
   }, [getMoviesCallback]);
 
-  useEffect(() => {
-    console.log(movies);
-  }, [movies]);
+  useEffect(() => {}, [movies]);
 
   const existMovie = useMemo(() => {
     const find = movies.find((item) => item.imdbID === id);
@@ -43,7 +44,21 @@ function MovieInfo() {
       dispatch(addMovieToWatch(movie));
     }
   }
-  function handleAddWatchedMovie() {
+  async function handleAddWatchedMovie() {
+    try {
+      const response = await axios.post(
+        'http://localhost:3333/movies',
+        {
+          movieId: movie?.imdbID,
+          status: 'WATCHED',
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
     if (movie) {
       dispatch(addMovieWatched(movie));
     }

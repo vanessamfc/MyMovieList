@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Movie, MyMovieListState } from '../../Interfaces';
-
+import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   removeMovieToWatch,
@@ -9,35 +9,77 @@ import {
 import { Link } from 'react-router-dom';
 import { StyledButton, Container } from './styles';
 
+interface Data {
+  movie: Movie;
+  id: number;
+  movieId: string;
+  status: string;
+  updatedAt: string;
+  userId: number;
+}
+
 function WatchedList() {
+  // @ts-ignore
+  const token = useSelector((state) => state.user.token);
   const dispatch = useDispatch();
   const movies = useSelector<MyMovieListState, Movie[]>(
     (state) => state.movie.myMoviesList
   );
+  const [watchedMovies, setWatchedMovies] = useState<Data[]>([]);
 
   const watchedMovieList = useMemo(
     () => movies.filter((item) => item.watched === true),
     [movies]
   );
 
-  useEffect(() => {
-    console.log(movies);
-  }, [movies]);
-
-  function handleDeleteWatchedMovie(movie: Movie) {
-    dispatch(removeMovieToWatch(movie));
+  async function getWatchedMovies() {
+    try {
+      const { data } = await axios.get('http://localhost:3333/movies', {
+        params: { status: 'WATCHED' },
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setWatchedMovies(data);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
   }
-  function handleAddToWatch(movie: Movie) {
-    dispatch(addMovieToWatch(movie));
+
+  useEffect(() => {
+    getWatchedMovies();
+  }, []);
+
+  async function handleDeleteWatchedMovie(movie: Data) {
+    try {
+      await axios.delete(`http://localhost:3333/movies/${movie.movieId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async function handleAddToWatch(movie: Data) {
+    try {
+      const response = await axios.put(
+        `http://localhost:3333/movies/${movie.movieId}`,
+        { status: 'PLAN_TO_WATCH' },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   }
   return (
     <Container>
       <ul>
-        {watchedMovieList.map((movie) => (
+        {watchedMovies.map((movie) => (
           <div>
-            <Link to={`/movie/${movie.imdbID}`}>
-              <img src={movie?.Poster} alt="" />
-              <li>{movie.Title}</li>
+            <Link to={`/movie/${movie.movieId}`}>
+              <img src={movie.movie?.Poster} alt="" />
+              <li>{movie.movie?.Title}</li>
             </Link>
             <div>
               <StyledButton

@@ -23,6 +23,11 @@ export default function user(state: UserState = INITIAL_STATE, action: Action) {
         draft.token = action.payload.token;
         break;
       }
+      case '@user/LOGOUT_SUCCESS':
+        {
+          draft.token = '';
+        }
+        break;
 
       default:
     }

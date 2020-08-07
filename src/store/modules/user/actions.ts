@@ -4,5 +4,11 @@ function signInSuccess(token: string) {
     payload: { token },
   };
 }
+function logoutSuccess() {
+  return {
+    type: '@user/LOGOUT_SUCCESS',
+    payload: {},
+  };
+}
 
-export { signInSuccess };
+export { signInSuccess, logoutSuccess };

@@ -31,9 +31,7 @@ export const SignInContainer = styled.div`
     > input:hover {
       border-color: #1b1b1b;
     }
-    > input:focus {
-      border-color: #1b1b1b;
-    }
+
     > div {
       display: flex;
       justify-content: center;
