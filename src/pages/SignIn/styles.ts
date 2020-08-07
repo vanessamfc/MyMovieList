@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { TextField, Button } from '@material-ui/core';
 import theme from '../../styles/themes';
 
-export const SignUpContainer = styled.div`
+export const SignInContainer = styled.div`
   display: flex;
   background-color: #424242;
   justify-content: center;
@@ -10,7 +10,7 @@ export const SignUpContainer = styled.div`
   height: 100vh;
   width: 100vw;
   > div:first-child {
-    height: 400px;
+    height: 300px;
     width: 350px;
     display: flex;
     flex-direction: column;
@@ -23,12 +23,15 @@ export const SignUpContainer = styled.div`
       border-radius: 5px;
       width: 300px;
       height: 45px;
-      border: 1px solid gray;
+      border: 1px solid #8e8e8e;
       padding: 10px;
       font-size: 16px;
       margin-top: 10px;
     }
     > input:hover {
+      border-color: #1b1b1b;
+    }
+    > input:focus {
       border-color: #1b1b1b;
     }
     > div {
@@ -46,10 +49,7 @@ export const SignUpContainer = styled.div`
   }
 `;
 
-export const StyledInput = styled(TextField)`
-  margin-top: 10px !important;
-`;
 export const StyledButton = styled(Button)`
   width: 100% !important;
-  margin-top: 5px !important;
+  margin-top: 10px !important;
 `;

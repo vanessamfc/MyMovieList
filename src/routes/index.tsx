@@ -5,6 +5,7 @@ import MovieInfo from '../pages/MovieInfo';
 import Watched from '../pages/WatchedList';
 import PlanToWatch from '../pages/PlanToWatchList';
 import SignUp from '../pages/SignUp';
+import SignIn from '../pages/SignIn';
 import { StyledNavbar } from './styles';
 
 function Routes() {
@@ -21,6 +22,7 @@ function Routes() {
         <Route path="/watched-list" component={Watched} />
         <Route path="/plan-to-watch-list" component={PlanToWatch} />
         <Route path="/sign-up" component={SignUp} />
+        <Route path="/sign-In" component={SignIn} />
       </Switch>
     </BrowserRouter>
   );
