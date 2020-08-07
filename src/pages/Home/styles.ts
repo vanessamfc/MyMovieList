@@ -34,6 +34,7 @@ export const Container = styled.div`
   }
   > div:last-child {
     display: flex;
+
     max-height: 390px;
     max-width: 800px;
     > a:hover {
@@ -53,6 +54,9 @@ export const Container = styled.div`
         height: 300px;
         opacity: 0.8;
       }
+    }
+    > h1 {
+      text-align: center;
     }
   }
 `;

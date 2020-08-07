@@ -79,7 +79,10 @@ function Home() {
             </Link>
           ))
         ) : (
-          <h1>erro</h1>
+          <h1>
+            Sorry, we didn't find the movie you're looking for. Please, check
+            the spelling.{' '}
+          </h1>
         )}
       </PerfectScrollbar>
     </Container>
