@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
 export const StyledNavbar = styled.nav`
   display: grid;
@@ -20,10 +21,11 @@ export const StyledNavbar = styled.nav`
     top: 0;
     flex-grow: 1;
     > a:hover {
-      background-color: #373737;
-      color: #e53935;
+      background-color: #e53935aa;
+      color: #fff;
       transition: 0.3s;
     }
+
     > a {
       display: flex;
       justify-content: center;
@@ -32,6 +34,7 @@ export const StyledNavbar = styled.nav`
       text-decoration: none;
       color: #fff;
       padding: 10px;
+      margin: 5px;
       border-radius: 5px;
     }
   }
@@ -57,7 +60,13 @@ export const StyledNavbar = styled.nav`
       }
     }
     > button:hover {
-      opacity: 0.9;
+      background-color: #e53935aa;
     }
+  }
+`;
+
+export const StyledNavLink = styled(NavLink)`
+  &.active {
+    background-color: #e53935;
   }
 `;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Link } from 'react-router-dom';
+import { BrowserRouter, Switch } from 'react-router-dom';
 import Home from '../pages/Home';
 import MovieInfo from '../pages/MovieInfo';
 import Watched from '../pages/WatchedList';
