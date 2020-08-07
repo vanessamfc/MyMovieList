@@ -4,7 +4,12 @@ import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import { SignInContainer, StyledButton } from './styles';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { signInSuccess } from '../../store/modules/user/actions';
 export default function SingUp() {
+  // @ts-ignore
+  const token = useSelector((state) => state.user.token);
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -22,6 +27,7 @@ export default function SingUp() {
         email,
         password,
       });
+      dispatch(signInSuccess(response.data.token));
       console.log(response);
     } catch (error) {
       console.log(error);
@@ -32,6 +38,7 @@ export default function SingUp() {
   return (
     <SignInContainer>
       <div>
+        {token ? 'Estou logado' : 'Estou dando o cú'}
         <h1>Sign In</h1>
 
         <input
