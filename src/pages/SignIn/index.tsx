@@ -1,28 +1,32 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
-
+import { toast } from 'react-toastify';
 import { SignInContainer, StyledButton } from './styles';
 import axios from 'axios';
 export default function SingUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  async function handleSubmit(data: any) {
+  async function handleSubmit() {
     try {
       const schema = Yup.object().shape({
-        email: Yup.string().required(),
+        email: Yup.string().required().email(),
         password: Yup.string().required().min(6),
       });
 
-      await schema.validate(data, { abortEarly: false });
+      await schema.validate({ email, password }, { abortEarly: false });
+      console.log(schema);
 
       const response = await axios.post('http://localhost:3333/session', {
         email,
         password,
       });
       console.log(response);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+      toast.error('Invalid Credentials');
+    }
   }
 
   return (
