@@ -22,3 +22,9 @@ export interface MyMovieListState {
     myMoviesList: Movie[];
   };
 }
+
+export interface User {
+  id?: number;
+  name: string;
+  email: string;
+}
