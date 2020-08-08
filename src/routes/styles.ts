@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 export const StyledNavbar = styled.nav`
   display: grid;
   grid-template-areas: 'gap menu button';
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 330px 1fr;
 
   height: 60px;
   position: fixed;
