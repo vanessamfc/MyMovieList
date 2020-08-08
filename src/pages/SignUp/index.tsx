@@ -21,7 +21,7 @@ export default function SingUp() {
       await schema.validate({ name, email, password }, { abortEarly: false });
       console.log(schema);
 
-      const response = await axios.post(`http://${process.env.REACT_APP_API_URL ||'localhost:3333'}/user`, {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL ||'http://localhost:3333'}/user`, {
         name,
         email,
         password,
