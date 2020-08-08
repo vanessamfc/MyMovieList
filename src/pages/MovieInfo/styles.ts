@@ -2,16 +2,19 @@ import styled from 'styled-components';
 import { Button } from '@material-ui/core';
 
 export const Container = styled.div`
-  height: 100vh;
-  width: 100vw;
+  min-height:100vh;
+  max-width:1200px;
   background-color: #424242;
   display: flex;
   color: #fff;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding:10px;
+  padding-top: 60px;
   > div:nth-child(1) {
     display: flex; 
+    
     > h1 {
       font-size: 40px;
       margin-bottom: 20px;
@@ -22,11 +25,16 @@ export const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @media(max-width: 815px) {
+    flex-wrap:wrap;
+  }
     > div:first-child {
       > img {
         height: 400px;
         box-shadow: 0px 0px 20px 0px rgba(0, 0, 0);
         margin-right: 20px;
+        margin-bottom:10px;
       }
     }
     > div:last-child {
@@ -53,6 +61,8 @@ export const Container = styled.div`
 
     margin-top: 15px;
   }
+
+
 `;
 
 export const StyledButton = styled(Button)`

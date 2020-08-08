@@ -13,6 +13,7 @@ export const StyledNavbar = styled.nav`
   width: 100%;
   z-index: 300;
   > div:first-child {
+    width:330px; 
     grid-area: menu;
     display: flex;
     justify-content: center;
@@ -63,7 +64,9 @@ export const StyledNavbar = styled.nav`
       background-color: #e53935aa;
     }
   }
+
 `;
+
 
 export const StyledNavLink = styled(NavLink)`
   &.active {

@@ -3,8 +3,8 @@ import { DebounceInput } from 'react-debounce-input';
 
 export const Container = styled.div`
   height: 100vh;
-  width: 100vw;
-
+  max-width: 1200px ;
+  
   display: flex;
   flex-direction: column;
 
@@ -28,13 +28,14 @@ export const Container = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding:10px;
     > h1 {
       margin-bottom: 20px;
     }
   }
   > div:last-child {
     display: flex;
-
+    width: 80%;
     max-height: 390px;
     max-width: 800px;
     > a:hover {
@@ -59,13 +60,18 @@ export const Container = styled.div`
       text-align: center;
     }
   }
+
+  @media(max-width: 801px) {
+    
+  }
 `;
 export const StyledInput = styled(DebounceInput)`
   height: 45px;
-  width: 400px;
+  width: 100%;
   border-radius: 10px;
   border-style: none;
-  padding-left: 5px;
+  padding-left: 10px;
   margin-bottom: 20px;
   font-size: 20px;
-`;
+`; 
+

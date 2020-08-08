@@ -24,6 +24,8 @@ export default createGlobalStyle`
   body {
     background: #1b1b1b;
     -webkit-font-smoothing: antialiased;
+    min-width:100%;
+    max-width:100vw;
   }
   body, input, button, textarea {
     font-family: 'Roboto', sans-serif;
@@ -34,6 +36,7 @@ export default createGlobalStyle`
     display: flex;
     justify-content: center;
     flex-direction:column;
+    min-height:100vh;
   }
   button {
     cursor: pointer;

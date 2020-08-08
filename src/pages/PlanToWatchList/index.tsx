@@ -24,7 +24,7 @@ function PlanToWatchList() {
 
   async function getPlanToWatchMovies() {
     try {
-      const { data } = await axios.get(`http://${process.env.REACT_APP_API_URL ||'localhost:3333'}/movies  `, {
+      const { data } = await axios.get(`http://${process.env.REACT_APP_API_URL ||'localhost:3333'}/movies`, {
         params: { status: 'PLAN_TO_WATCH' },
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -38,7 +38,7 @@ function PlanToWatchList() {
   useEffect(() => {
     getPlanToWatchMovies();
   }, []);
-
+ 
   async function handleDeletePlanToWatchMovie(movie: Data) {
     try {
       await axios.delete(`http://${process.env.REACT_APP_API_URL ||'localhost:3333'}/movies/${movie.movieId}`, {
@@ -46,7 +46,7 @@ function PlanToWatchList() {
       });
       await getPlanToWatchMovies();
     } catch (error) {
-      console.log(error);
+      console.log(error); 
     }
   }
  

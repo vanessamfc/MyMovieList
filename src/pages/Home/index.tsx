@@ -42,9 +42,9 @@ function Home() {
   }, [search]);
 
   useEffect(() => {
-    getMoviesCallback();
+    getMoviesCallback(); 
   }, [getMoviesCallback]);
-
+ 
   useEffect(() => {
     debounceinput.current?.setAttribute('spellcheck', 'false');
     debounceinput.current?.focus();
