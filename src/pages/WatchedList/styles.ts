@@ -13,7 +13,7 @@ export const Container = styled.div`
     font-size: 20px;
     margin-top: 20px;
     list-style: none;
-    align-items: center;
+    align-items: center; 
     > div {
       width: 800px;
       color: #6d6d6d;

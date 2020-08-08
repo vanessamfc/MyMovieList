@@ -68,4 +68,4 @@ export const StyledInput = styled(DebounceInput)`
   padding-left: 5px;
   margin-bottom: 20px;
   font-size: 20px;
-`;
+`; 

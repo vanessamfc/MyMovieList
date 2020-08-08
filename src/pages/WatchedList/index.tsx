@@ -22,14 +22,14 @@ function WatchedList() {
 
   async function getWatchedMovies() {
     try {
-      const { data } = await axios.get(`http://${process.env.REACT_APP_API_URL ||'localhost:3333'}/movies `, {
+      const { data } = await axios.get(`http://${process.env.REACT_APP_API_URL ||'localhost:3333'}/movies`, {
         params: { status: 'WATCHED' },
         headers: { Authorization: `Bearer ${token}` },
       });
       setWatchedMovies(data);
       console.log(data);
     } catch (error) {
-      console.log(error); 
+      console.log(error);  
     }
   }
 
