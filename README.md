@@ -1,10 +1,10 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# My Movie List
+## About
 
-In the project directory, you can run:
+My Movie List is a application that allow user to search for movies and add them to a Watched list or a Plan to watch list.
+sim
 
-### `yarn start`
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
