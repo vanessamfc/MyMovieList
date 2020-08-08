@@ -24,7 +24,7 @@ function PlanToWatchList() {
 
   async function getPlanToWatchMovies() {
     try {
-      const { data } = await axios.get('http://localhost:3333/movies', {
+      const { data } = await axios.get(`http://${process.env.API_URL ||'localhost:3333'}/movies  `, {
         params: { status: 'PLAN_TO_WATCH' },
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -41,7 +41,7 @@ function PlanToWatchList() {
 
   async function handleDeletePlanToWatchMovie(movie: Data) {
     try {
-      await axios.delete(`http://localhost:3333/movies/${movie.movieId}`, {
+      await axios.delete(`http://${process.env.API_URL ||'localhost:3333'}/movies/${movie.movieId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       await getPlanToWatchMovies();
@@ -49,11 +49,11 @@ function PlanToWatchList() {
       console.log(error);
     }
   }
-
+ 
   async function handleAddWatchedMovie(movie: Data) {
     try {
       const response = await axios.put(
-        `http://localhost:3333/movies/${movie.movieId}`,
+        `http://${process.env.API_URL ||'localhost:3333'}/movies/${movie.movieId}`,
         { status: 'WATCHED' },
         {
           headers: { Authorization: `Bearer ${token}` },

@@ -23,22 +23,22 @@ export default function SingUp() {
       await schema.validate({ email, password }, { abortEarly: false });
       console.log(schema);
 
-      const response = await axios.post('http://localhost:3333/session', {
+      const response = await axios.post(`http://${process.env.API_URL ||'localhost:3333'}/session `, {
         email,
         password,
       });
       dispatch(signInSuccess(response.data.token));
       console.log(response);
-    } catch (error) {
+    } catch (error) { 
       console.log(error);
-      toast.error('Invalid Credentials');
+      toast.error('Invalid Credentials'); 
     }
   }
 
   return (
     <SignInContainer>
       <div>
-        {token ? 'Estou logado' : 'Estou dando o cú'}
+        
         <h1>Sign In</h1>
 
         <input

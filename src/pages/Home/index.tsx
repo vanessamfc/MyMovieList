@@ -10,7 +10,7 @@ interface OmdbResponse {
   totalResults: string;
   Response: string;
   Error: string;
-}
+} 
 
 interface Movies {
   Title: string;

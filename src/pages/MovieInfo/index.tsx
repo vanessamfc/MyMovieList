@@ -39,7 +39,7 @@ function MovieInfo() {
     try {
       if (!movieInData) {
         await axios.post(
-          'http://localhost:3333/movies',
+          `http://${process.env.API_URL ||'localhost:3333'} `,
           {
             movieId: movie?.imdbID,
             status: 'WATCHED',
@@ -48,13 +48,13 @@ function MovieInfo() {
         );
       } else {
         await axios.put(
-          `http://localhost:3333/movies/${movieInData.movieId}`,
+          `http://${process.env.API_URL ||'localhost:3333'}/movies/${movieInData.movieId}`,
           {
             status: 'WATCHED',
           },
           { headers: { Authorization: `Bearer ${token}` } }
         );
-      }
+      } 
       await getMovie();
       toast.success('Movie added to your Watched List');
     } catch (error) {
@@ -66,7 +66,7 @@ function MovieInfo() {
     try {
       if (!movieInData) {
         await axios.post(
-          'http://localhost:3333/movies',
+          `http://${process.env.API_URL ||'localhost:3333'}/movies `,
           {
             movieId: movie?.imdbID,
             status: 'PLAN_TO_WATCH',
@@ -75,7 +75,7 @@ function MovieInfo() {
         );
       } else {
         await axios.put(
-          `http://localhost:3333/movies/${movieInData.movieId}`,
+          `http://${process.env.API_URL ||'localhost:3333'}/movies/${movieInData.movieId}`,
           {
             status: 'PLAN_TO_WATCH',
           },
@@ -92,8 +92,8 @@ function MovieInfo() {
   async function getMovie() {
     try {
       const { data } = await axios.get(
-        `http://localhost:3333/movies/${movie?.imdbID}`,
-
+        `http://${process.env.API_URL ||'localhost:3333'}/movies/${movie?.imdbID}`,
+ 
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setMovieInData(data);
