@@ -23,7 +23,7 @@ export default function SingUp() {
       await schema.validate({ email, password }, { abortEarly: false });
       console.log(schema);
 
-      const response = await axios.post(`http://${process.env.API_URL ||'localhost:3333'}/session `, {
+      const response = await axios.post(`http://${process.env.REACT_APP_API_URL ||'localhost:3333'}/session `, {
         email,
         password,
       });
