@@ -39,7 +39,7 @@ function MovieInfo() {
     try {
       if (!movieInData) {
         await axios.post(
-          `http://${process.env.API_URL ||'localhost:3333'} `,
+          `http://${process.env.REACT_APP_API_URL ||'localhost:3333'} `,
           {
             movieId: movie?.imdbID,
             status: 'WATCHED',
@@ -48,7 +48,7 @@ function MovieInfo() {
         );
       } else {
         await axios.put(
-          `http://${process.env.API_URL ||'localhost:3333'}/movies/${movieInData.movieId}`,
+          `http://${process.env.REACT_APP_API_URL ||'localhost:3333'}/movies/${movieInData.movieId}`,
           {
             status: 'WATCHED',
           },
@@ -66,7 +66,7 @@ function MovieInfo() {
     try {
       if (!movieInData) {
         await axios.post(
-          `http://${process.env.API_URL ||'localhost:3333'}/movies `,
+          `http://${process.env.REACT_APP_API_URL ||'localhost:3333'}/movies `,
           {
             movieId: movie?.imdbID,
             status: 'PLAN_TO_WATCH',
@@ -75,7 +75,7 @@ function MovieInfo() {
         );
       } else {
         await axios.put(
-          `http://${process.env.API_URL ||'localhost:3333'}/movies/${movieInData.movieId}`,
+          `http://${process.env.REACT_APP_API_URL ||'localhost:3333'}/movies/${movieInData.movieId}`,
           {
             status: 'PLAN_TO_WATCH',
           },
@@ -92,7 +92,7 @@ function MovieInfo() {
   async function getMovie() {
     try {
       const { data } = await axios.get(
-        `http://${process.env.API_URL ||'localhost:3333'}/movies/${movie?.imdbID}`,
+        `http://${process.env.REACT_APP_API_URL ||'localhost:3333'}/movies/${movie?.imdbID}`,
  
         { headers: { Authorization: `Bearer ${token}` } }
       );
