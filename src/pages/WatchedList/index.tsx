@@ -69,7 +69,7 @@ function WatchedList() {
           <div>
             <Link to={`/movie/${movie.movieId}`}>
               <img src={movie.movie?.Poster} alt="" />
-              <li>{movie.movie?.Title}</li>
+              <p>{movie.movie?.Title}</p>
             </Link>
             <div>
               <StyledButton

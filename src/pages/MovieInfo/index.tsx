@@ -39,7 +39,7 @@ function MovieInfo() {
     try {
       if (!movieInData) {
         await axios.post(
-          `http://${process.env.REACT_APP_API_URL ||'localhost:3333'}`,
+          `http://${process.env.REACT_APP_API_URL ||'localhost:3333'}/movies`,
           {
             movieId: movie?.imdbID,
             status: 'WATCHED',
