@@ -3,7 +3,7 @@ import { DebounceInput } from 'react-debounce-input';
 
 export const Container = styled.div`
   height: 100vh;
-  max-width: 1200px ;
+  max-width: 100% ;
   
   display: flex;
   flex-direction: column;
