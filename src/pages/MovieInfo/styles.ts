@@ -11,7 +11,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   > div:nth-child(1) {
-    display: flex;
+    display: flex; 
     > h1 {
       font-size: 40px;
       margin-bottom: 20px;
