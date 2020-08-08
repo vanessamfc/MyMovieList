@@ -30,7 +30,7 @@ function Home() {
     const {
       data: { Search, Error },
     } = await axios.get<OmdbResponse>(
-      `http://www.omdbapi.com/?s=${search}&apikey=8efc0c42`
+      `https://www.omdbapi.com/?s=${search}&apikey=8efc0c42`
     );
 
     if (Error === 'Movie not found!') {

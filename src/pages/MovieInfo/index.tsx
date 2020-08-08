@@ -22,7 +22,7 @@ function MovieInfo() {
 
   const getMoviesCallback = useCallback(async () => {
     const { data } = await axios.get<Movie>(
-      `http://www.omdbapi.com/?i=${id}&apikey=8efc0c42`
+      `https://www.omdbapi.com/?i=${id}&apikey=8efc0c42`
     );
     setMovie(data);
   }, [id]);
@@ -39,7 +39,7 @@ function MovieInfo() {
     try {
       if (!movieInData) {
         await axios.post(
-          `${process.env.REACT_APP_API_URL ||'http://localhost:3333'}/movies`,
+          `http://${process.env.REACT_APP_API_URL ||'localhost:3333'}/movies`,
           {
             movieId: movie?.imdbID,
             status: 'WATCHED',
@@ -48,7 +48,7 @@ function MovieInfo() {
         );
       } else {
         await axios.put(
-          `${process.env.REACT_APP_API_URL ||'http://localhost:3333'}/movies/${movieInData.movieId}`,
+          `http://${process.env.REACT_APP_API_URL ||'localhost:3333'}/movies/${movieInData.movieId}`,
           {
             status: 'WATCHED',
           },
@@ -66,7 +66,7 @@ function MovieInfo() {
     try {
       if (!movieInData) {
         await axios.post(
-          `${process.env.REACT_APP_API_URL ||'http://localhost:3333'}/movies`,
+          `http://${process.env.REACT_APP_API_URL ||'localhost:3333'}/movies`,
           {
             movieId: movie?.imdbID,
             status: 'PLAN_TO_WATCH',
@@ -75,7 +75,7 @@ function MovieInfo() {
         );
       } else {
         await axios.put(
-          `${process.env.REACT_APP_API_URL ||'http://localhost:3333'}/movies/${movieInData.movieId}`,
+          `http://${process.env.REACT_APP_API_URL ||'localhost:3333'}/movies/${movieInData.movieId}`,
           {
             status: 'PLAN_TO_WATCH',
           },
@@ -92,7 +92,7 @@ function MovieInfo() {
   async function getMovie() {
     try {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_API_URL ||'http://localhost:3333'}/movies/${movie?.imdbID}`,
+        `http://${process.env.REACT_APP_API_URL ||'localhost:3333'}/movies/${movie?.imdbID}`,
  
         { headers: { Authorization: `Bearer ${token}` } }
       );
