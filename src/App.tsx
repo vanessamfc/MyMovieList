@@ -12,6 +12,7 @@ import { ToastContainer } from 'react-toastify';
 
 function App() {
   return (
+    
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <ThemeProvider theme={themes}>

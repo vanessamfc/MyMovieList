@@ -1,5 +1,4 @@
 import produce from 'immer';
-import { Movie } from '../../../Interfaces';
 
 const INITIAL_STATE = {
   token: '',
