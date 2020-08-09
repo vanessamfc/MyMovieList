@@ -3,7 +3,7 @@ import { Button } from '@material-ui/core';
 
 export const Container = styled.div`
   min-height:100vh;
-  max-width:1200px;
+  max-width:100%;
   background-color: #424242;
   display: flex;
   color: #fff;

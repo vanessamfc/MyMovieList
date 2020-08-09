@@ -6,6 +6,7 @@ My Movie List is a application that allow user to search for movies and add them
 
 ![Home Page](/readmeImg/home.png?raw=true "Home Page")
 
+![Whatched List Page](/readmeImg/watchedList.png?raw=true "Whatched List Page")
 
 
 ## Get started 
