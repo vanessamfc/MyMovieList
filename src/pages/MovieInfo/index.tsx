@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { Movie } from '../../Interfaces';
 import { Container, StyledButton } from './styles';
 
+import Loading from '../../components/Loading';
 interface DataMovie {
   movieId: string;
   status: string;
@@ -20,11 +21,14 @@ function MovieInfo() {
   const [movie, setMovie] = useState<Movie>();
   const [movieInData, setMovieInData] = useState<DataMovie>();
 
+  const [loading, setLoading] = useState(false);
   const getMoviesCallback = useCallback(async () => {
+    setLoading(true);
     const { data } = await axios.get<Movie>(
       `https://www.omdbapi.com/?i=${id}&apikey=8efc0c42`
     );
     setMovie(data);
+    setLoading(false);
   }, [id]);
 
   useEffect(() => {
@@ -39,7 +43,7 @@ function MovieInfo() {
     try {
       if (!movieInData) {
         await axios.post(
-          `${process.env.REACT_APP_API_URL ||'http://localhost:3333'}/movies`,
+          `${process.env.REACT_APP_API_URL || 'http://localhost:3333'}/movies`,
           {
             movieId: movie?.imdbID,
             status: 'WATCHED',
@@ -48,13 +52,15 @@ function MovieInfo() {
         );
       } else {
         await axios.put(
-          `${process.env.REACT_APP_API_URL ||'http://localhost:3333'}/movies/${movieInData.movieId}`,
+          `${process.env.REACT_APP_API_URL || 'http://localhost:3333'}/movies/${
+            movieInData.movieId
+          }`,
           {
             status: 'WATCHED',
           },
           { headers: { Authorization: `Bearer ${token}` } }
         );
-      } 
+      }
       await getMovie();
       toast.success('Movie added to your Watched List');
     } catch (error) {
@@ -66,7 +72,7 @@ function MovieInfo() {
     try {
       if (!movieInData) {
         await axios.post(
-          `${process.env.REACT_APP_API_URL ||'http://localhost:3333'}/movies`,
+          `${process.env.REACT_APP_API_URL || 'http://localhost:3333'}/movies`,
           {
             movieId: movie?.imdbID,
             status: 'PLAN_TO_WATCH',
@@ -75,7 +81,9 @@ function MovieInfo() {
         );
       } else {
         await axios.put(
-          `${process.env.REACT_APP_API_URL ||'http://localhost:3333'}/movies/${movieInData.movieId}`,
+          `${process.env.REACT_APP_API_URL || 'http://localhost:3333'}/movies/${
+            movieInData.movieId
+          }`,
           {
             status: 'PLAN_TO_WATCH',
           },
@@ -92,8 +100,10 @@ function MovieInfo() {
   async function getMovie() {
     try {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_API_URL ||'http://localhost:3333'}/movies/${movie?.imdbID}`,
- 
+        `${process.env.REACT_APP_API_URL || 'http://localhost:3333'}/movies/${
+          movie?.imdbID
+        }`,
+
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setMovieInData(data);
@@ -103,54 +113,62 @@ function MovieInfo() {
   }
 
   return (
-    <Container>
-      <div>
-        <h1>{movie?.Title}</h1>
-      </div>
-      <div>
+    <>
+      <Container>
         <div>
-          <img src={movie?.Poster} alt="" />
+          <h1>{movie?.Title}</h1>
         </div>
         <div>
-          <p>{movie?.Plot}</p>
-          <h1>Ratings:</h1>
-          <>
-            {movie?.Ratings.map((item) => (
-              <p>
-                {item.Source}: {item.Value}
-              </p>
-            ))}
-          </>
+          <div>
+            <img src={movie?.Poster} alt="" />
+          </div>
+          {movie ? (
+            <div>
+              <p>{movie?.Plot}</p>
+              <h1>Ratings:</h1>
+              <>
+                {movie?.Ratings.map((item) => (
+                  <p>
+                    {item.Source}: {item.Value}
+                  </p>
+                ))}
+              </>
 
-          <span>{movie?.Genre}, </span>
-          <span>{movie?.Awards}</span>
+              <span>{movie?.Genre}, </span>
+              <span>{movie?.Awards}</span>
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
-      </div>
-      <div>
-        <StyledButton
-          type="button"
-          color="primary"
-          variant="contained"
-          disabled={movieInData?.status === 'PLAN_TO_WATCH'}
-          onClick={() => {
-            handleAddPlanToWatchMovie();
-          }}
-        >
-          plan to watch
-        </StyledButton>
-        <StyledButton
-          color="primary"
-          variant="contained"
-          type="button"
-          disabled={movieInData?.status === 'WATCHED'}
-          onClick={() => {
-            handleAddWatchedMovie();
-          }}
-        >
-          watched
-        </StyledButton>
-      </div>
-    </Container>
+        <div>
+          <StyledButton
+            type="button"
+            color="primary"
+            variant="contained"
+            disabled={movieInData?.status === 'PLAN_TO_WATCH'}
+            onClick={() => {
+              handleAddPlanToWatchMovie();
+            }}
+          >
+            plan to watch
+          </StyledButton>
+          <StyledButton
+            color="primary"
+            variant="contained"
+            type="button"
+            disabled={movieInData?.status === 'WATCHED'}
+            onClick={() => {
+              handleAddWatchedMovie();
+            }}
+          >
+            watched
+          </StyledButton>
+        </div>
+      </Container>
+
+      <Loading open={loading} />
+    </>
   );
 }
 
