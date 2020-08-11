@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { StyledButton, Container } from './styles';
+import Loading from '../../components/Loading';
 
 interface Data {
   movie: Movie;
@@ -18,19 +19,25 @@ function WatchedList() {
   // @ts-ignore
   const token = useSelector((state) => state.user.token);
 
+  const [loading, setLoading] = useState(false);
   const [watchedMovies, setWatchedMovies] = useState<Data[]>([]);
 
   async function getWatchedMovies() {
+    setLoading(true);
     try {
-      const { data } = await axios.get(`${process.env.REACT_APP_API_URL ||'http://localhost:3333'}/movies`, {
-        params: { status: 'WATCHED' },
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_API_URL || 'http://localhost:3333'}/movies`,
+        {
+          params: { status: 'WATCHED' },
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       setWatchedMovies(data);
       console.log(data);
     } catch (error) {
-      console.log(error);  
+      console.log(error);
     }
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -39,9 +46,14 @@ function WatchedList() {
 
   async function handleDeleteWatchedMovie(movie: Data) {
     try {
-      await axios.delete(`${process.env.REACT_APP_API_URL ||'http://localhost:3333'}/movies/${movie.movieId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axios.delete(
+        `${process.env.REACT_APP_API_URL || 'http://localhost:3333'}/movies/${
+          movie.movieId
+        }`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       await getWatchedMovies();
     } catch (error) {
       console.log(error);
@@ -50,7 +62,9 @@ function WatchedList() {
   async function handleAddToWatch(movie: Data) {
     try {
       const response = await axios.put(
-        `${process.env.REACT_APP_API_URL ||'http://localhost:3333'}/movies/${movie.movieId}`,
+        `${process.env.REACT_APP_API_URL || 'http://localhost:3333'}/movies/${
+          movie.movieId
+        }`,
         { status: 'PLAN_TO_WATCH' },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -63,36 +77,39 @@ function WatchedList() {
     }
   }
   return (
-    <Container>
-      <ul>
-        {watchedMovies.map((movie) => (
-          <div>
-            <Link to={`/movie/${movie.movieId}`}>
-              <img src={movie.movie?.Poster} alt="" />
-              <p>{movie.movie?.Title}</p>
-            </Link>
+    <>
+      <Container>
+        <ul>
+          {watchedMovies.map((movie) => (
             <div>
-              <StyledButton
-                color="secondary"
-                variant="outlined"
-                type="button"
-                onClick={() => handleAddToWatch(movie)}
-              >
-                plan to watch
-              </StyledButton>
-              <StyledButton
-                color="secondary"
-                variant="outlined"
-                type="button"
-                onClick={() => handleDeleteWatchedMovie(movie)}
-              >
-                delete
-              </StyledButton>
+              <Link to={`/movie/${movie.movieId}`}>
+                <img src={movie.movie?.Poster} alt="" />
+                <p>{movie.movie?.Title}</p>
+              </Link>
+              <div>
+                <StyledButton
+                  color="secondary"
+                  variant="outlined"
+                  type="button"
+                  onClick={() => handleAddToWatch(movie)}
+                >
+                  plan to watch
+                </StyledButton>
+                <StyledButton
+                  color="secondary"
+                  variant="outlined"
+                  type="button"
+                  onClick={() => handleDeleteWatchedMovie(movie)}
+                >
+                  delete
+                </StyledButton>
+              </div>
             </div>
-          </div>
-        ))}
-      </ul>
-    </Container>
+          ))}
+        </ul>
+      </Container>
+      <Loading open={loading} />
+    </>
   );
 }
 
