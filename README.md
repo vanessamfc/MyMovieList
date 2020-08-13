@@ -8,14 +8,14 @@ My Movie List is a application that allow user to search for movies and add them
 
 ## Get started
 
-#### `Installation`
+#### Installation
 
 ```sh
 $ git clone https://github.com/vanessamfc/MyMovieList.git
 $ cd MyMovieList
 ```
 
-### `Connecting to the server`
+### Connecting to the server
 
 the application will try to connect to the server hosted in this [link](https://mmlapi.projectargos.tech/).
 
@@ -29,7 +29,7 @@ Example:
 REACT_APP_API_URL=http://localhost:3333/
 ```
 
-#### `Running the application`
+#### Running the application
 
 To run this project execute these comands
 
