@@ -6,6 +6,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 import Loading from '../../components/Loading';
+import mmlApi from '../../service/api';
 
 export default function SingUp() {
   const [name, setName] = useState('');
@@ -26,19 +27,16 @@ export default function SingUp() {
       await schema.validate({ name, email, password }, { abortEarly: false });
       console.log(schema);
 
-      const response = await axios.post(
-        `${process.env.REACT_APP_API_URL || 'http://localhost:3333'}/user`,
-        {
-          name,
-          email,
-          password,
-        }
-      );
+      await mmlApi.post(`/user`, {
+        name,
+        email,
+        password,
+      });
       toast.success('Your account has been successfully created');
       history.push('/');
     } catch (error) {
       console.log(error);
-      toast.error('Invalid Credentials');
+      toast.error('Failed to create account');
     }
     setLoading(true);
   }
