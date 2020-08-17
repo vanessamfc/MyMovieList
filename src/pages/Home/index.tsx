@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Container, StyledInput } from './styles';
 import PerfectScrollbar from 'react-perfect-scrollbar';

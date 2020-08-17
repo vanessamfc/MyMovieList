@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Movie } from '../../Interfaces';
-import axios from 'axios';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { StyledButton, Container } from './styles';
 import Loading from '../../components/Loading';
 import mmlApi from '../../service/api';
+import { toast } from 'react-toastify';
 
 interface Data {
   movie: Movie;
@@ -27,9 +26,8 @@ function WatchedList() {
         params: { status: 'WATCHED' },
       });
       setWatchedMovies(data);
-      console.log(data);
     } catch (error) {
-      console.log(error);
+      toast.error('Sorry, an error occurred loading this page');
     }
     setLoading(false);
   }
@@ -43,7 +41,7 @@ function WatchedList() {
       await mmlApi.delete(`/movies/${movie.movieId}`);
       await getWatchedMovies();
     } catch (error) {
-      console.log(error);
+      toast.error('Sorry, an error occurred during deletion');
     }
   }
   async function handleAddToWatch(movie: Data) {
@@ -51,7 +49,7 @@ function WatchedList() {
       await mmlApi.put(`/movies/${movie.movieId}`, { status: 'PLAN_TO_WATCH' });
       await getWatchedMovies();
     } catch (error) {
-      console.log(error);
+      toast.error('Sorry, an error occurred while adding your movie');
     }
   }
   return (

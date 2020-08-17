@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 import { SignUpContainer, StyledButton } from './styles';
-import axios from 'axios';
 import { toast } from 'react-toastify';
 
 import Loading from '../../components/Loading';
@@ -25,7 +24,6 @@ export default function SingUp() {
       });
 
       await schema.validate({ name, email, password }, { abortEarly: false });
-      console.log(schema);
 
       await mmlApi.post(`/user`, {
         name,
@@ -35,7 +33,6 @@ export default function SingUp() {
       toast.success('Your account has been successfully created');
       history.push('/');
     } catch (error) {
-      console.log(error);
       toast.error('Failed to create account');
     }
     setLoading(true);
@@ -70,6 +67,7 @@ export default function SingUp() {
               setPassword(e.target.value);
             }}
           />
+          <p>Your password must have at least 8 characters.</p>
           <StyledButton
             variant="contained"
             color="primary"
