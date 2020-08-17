@@ -1,7 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 import { toast } from 'react-toastify';
 import { Movie } from '../../Interfaces';
@@ -51,7 +49,7 @@ function MovieInfo() {
       await getMovie();
       toast.success('Movie added to your Watched List');
     } catch (error) {
-      console.log(error);
+      toast.error('Sorry, an error occurred while adding your movie');
     }
   }
 
@@ -70,7 +68,7 @@ function MovieInfo() {
       await getMovie();
       toast.success('Movie added to your Plant To Watch List');
     } catch (error) {
-      console.log(error);
+      toast.error('Sorry, an error occurred while adding your movie');
     }
   }
 
@@ -79,7 +77,7 @@ function MovieInfo() {
       const { data } = await mmlApi.get(`/movies/${movie?.imdbID}`);
       setMovieInData(data);
     } catch (error) {
-      console.log(error);
+      toast.error('Sorry, an error occurred loading this page');
     }
   }
 

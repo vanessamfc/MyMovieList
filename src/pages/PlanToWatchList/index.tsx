@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Movie } from '../../Interfaces';
 
-import { useSelector } from 'react-redux';
-
 import { Container, StyledButton } from './styles';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 
 import Loading from '../../components/Loading';
 import mmlApi from '../../service/api';
+import { toast } from 'react-toastify';
 interface Data {
   movie: Movie;
   id: number;
@@ -29,9 +27,8 @@ function PlanToWatchList() {
         params: { status: 'PLAN_TO_WATCH' },
       });
       setPlanToWatchMovies(data);
-      console.log(data);
     } catch (error) {
-      console.log(error);
+      toast.error('Sorry, an error occurred loading this page');
     }
     setLoading(false);
   }
@@ -45,19 +42,18 @@ function PlanToWatchList() {
       await mmlApi.delete(`/movies/${movie.movieId}`);
       await getPlanToWatchMovies();
     } catch (error) {
-      console.log(error);
+      toast.error('Sorry, an error occurred during deletion');
     }
   }
 
   async function handleAddWatchedMovie(movie: Data) {
     try {
-      const response = await mmlApi.put(`/movies/${movie.movieId}`, {
+      await mmlApi.put(`/movies/${movie.movieId}`, {
         status: 'WATCHED',
       });
       await getPlanToWatchMovies();
-      console.log(response);
     } catch (error) {
-      console.log(error);
+      toast.error('Sorry, an error occurred while adding your movie');
     }
   }
 

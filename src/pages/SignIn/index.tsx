@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import { SignInContainer, StyledButton } from './styles';
-import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { signInSuccess } from '../../store/modules/user/actions';
 import Loading from '../../components/Loading';

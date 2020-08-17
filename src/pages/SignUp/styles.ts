@@ -9,6 +9,7 @@ export const SignUpContainer = styled.div`
   align-items: center;
   height: 100vh;
   width: 100vw;
+
   > div:first-child {
     height: 400px;
     width: 350px;
@@ -30,6 +31,10 @@ export const SignUpContainer = styled.div`
     }
     > input:hover {
       border-color: #1b1b1b;
+    }
+    > p {
+      color: #757575;
+      margin: 3px 0 3px 10px;
     }
     > div {
       display: flex;

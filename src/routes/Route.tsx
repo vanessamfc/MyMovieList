@@ -1,12 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Route, Redirect, RouteProps } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { UserState } from '../Interfaces';
 import { MdExitToApp } from 'react-icons/md';
 import { StyledNavbar, StyledNavLink } from './styles';
 import { logoutSuccess } from '../store/modules/user/actions';
-import mmlApi from '../service/api';
-
 interface IRoutes extends RouteProps {
   Component: any;
   isPrivate?: boolean;
