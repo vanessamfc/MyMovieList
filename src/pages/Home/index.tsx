@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Container, StyledInput } from './styles';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import defaultImg from '../../assets/defaultImg.svg';
+import { omdbApi } from '../../service/api';
 interface OmdbResponse {
   Search: Movies[];
   totalResults: string;
@@ -29,9 +30,7 @@ function Home() {
   const getMoviesCallback = useCallback(async () => {
     const {
       data: { Search, Error },
-    } = await axios.get<OmdbResponse>(
-      `https://www.omdbapi.com/?s=${search}&apikey=8efc0c42`
-    );
+    } = await omdbApi.get<OmdbResponse>(`/?s=${search}&apikey=8efc0c42`);
 
     if (Error === 'Movie not found!') {
       setError(true);

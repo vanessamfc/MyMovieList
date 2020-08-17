@@ -8,6 +8,7 @@ import { Movie } from '../../Interfaces';
 import { Container, StyledButton } from './styles';
 
 import Loading from '../../components/Loading';
+import mmlApi, { omdbApi } from '../../service/api';
 interface DataMovie {
   movieId: string;
   status: string;
@@ -15,8 +16,6 @@ interface DataMovie {
 }
 
 function MovieInfo() {
-  // @ts-ignore
-  const token = useSelector((state) => state.user.token);
   const { id } = useParams();
   const [movie, setMovie] = useState<Movie>();
   const [movieInData, setMovieInData] = useState<DataMovie>();
@@ -24,9 +23,7 @@ function MovieInfo() {
   const [loading, setLoading] = useState(false);
   const getMoviesCallback = useCallback(async () => {
     setLoading(true);
-    const { data } = await axios.get<Movie>(
-      `https://www.omdbapi.com/?i=${id}&apikey=8efc0c42`
-    );
+    const { data } = await omdbApi.get<Movie>(`/?i=${id}&apikey=8efc0c42`);
     setMovie(data);
     setLoading(false);
   }, [id]);
@@ -42,24 +39,14 @@ function MovieInfo() {
   async function handleAddWatchedMovie() {
     try {
       if (!movieInData) {
-        await axios.post(
-          `${process.env.REACT_APP_API_URL || 'http://localhost:3333'}/movies`,
-          {
-            movieId: movie?.imdbID,
-            status: 'WATCHED',
-          },
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
+        await mmlApi.post(`/movies`, {
+          movieId: movie?.imdbID,
+          status: 'WATCHED',
+        });
       } else {
-        await axios.put(
-          `${process.env.REACT_APP_API_URL || 'http://localhost:3333'}/movies/${
-            movieInData.movieId
-          }`,
-          {
-            status: 'WATCHED',
-          },
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
+        await mmlApi.put(`/movies/${movieInData.movieId}`, {
+          status: 'WATCHED',
+        });
       }
       await getMovie();
       toast.success('Movie added to your Watched List');
@@ -71,24 +58,14 @@ function MovieInfo() {
   async function handleAddPlanToWatchMovie() {
     try {
       if (!movieInData) {
-        await axios.post(
-          `${process.env.REACT_APP_API_URL || 'http://localhost:3333'}/movies`,
-          {
-            movieId: movie?.imdbID,
-            status: 'PLAN_TO_WATCH',
-          },
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
+        await mmlApi.post(`/movies`, {
+          movieId: movie?.imdbID,
+          status: 'PLAN_TO_WATCH',
+        });
       } else {
-        await axios.put(
-          `${process.env.REACT_APP_API_URL || 'http://localhost:3333'}/movies/${
-            movieInData.movieId
-          }`,
-          {
-            status: 'PLAN_TO_WATCH',
-          },
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
+        await mmlApi.put(`/movies/${movieInData.movieId}`, {
+          status: 'PLAN_TO_WATCH',
+        });
       }
       await getMovie();
       toast.success('Movie added to your Plant To Watch List');
@@ -99,13 +76,7 @@ function MovieInfo() {
 
   async function getMovie() {
     try {
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_API_URL || 'http://localhost:3333'}/movies/${
-          movie?.imdbID
-        }`,
-
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      const { data } = await mmlApi.get(`/movies/${movie?.imdbID}`);
       setMovieInData(data);
     } catch (error) {
       console.log(error);

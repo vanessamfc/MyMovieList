@@ -7,9 +7,8 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { signInSuccess } from '../../store/modules/user/actions';
 import Loading from '../../components/Loading';
+import mmlApi from '../../service/api';
 export default function SingUp() {
-  // @ts-ignore
-
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -25,13 +24,10 @@ export default function SingUp() {
 
       await schema.validate({ email, password }, { abortEarly: false });
 
-      const response = await axios.post(
-        `${process.env.REACT_APP_API_URL || 'http://localhost:3333'}/session`,
-        {
-          email,
-          password,
-        }
-      );
+      const response = await mmlApi.post(`/session`, {
+        email,
+        password,
+      });
       dispatch(signInSuccess(response.data.token));
     } catch (error) {
       toast.error('Invalid Credentials');

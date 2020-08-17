@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { StyledButton, Container } from './styles';
 import Loading from '../../components/Loading';
+import mmlApi from '../../service/api';
 
 interface Data {
   movie: Movie;
@@ -16,22 +17,15 @@ interface Data {
 }
 
 function WatchedList() {
-  // @ts-ignore
-  const token = useSelector((state) => state.user.token);
-
   const [loading, setLoading] = useState(false);
   const [watchedMovies, setWatchedMovies] = useState<Data[]>([]);
 
   async function getWatchedMovies() {
     setLoading(true);
     try {
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_API_URL || 'http://localhost:3333'}/movies`,
-        {
-          params: { status: 'WATCHED' },
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const { data } = await mmlApi.get(`/movies`, {
+        params: { status: 'WATCHED' },
+      });
       setWatchedMovies(data);
       console.log(data);
     } catch (error) {
@@ -46,14 +40,7 @@ function WatchedList() {
 
   async function handleDeleteWatchedMovie(movie: Data) {
     try {
-      await axios.delete(
-        `${process.env.REACT_APP_API_URL || 'http://localhost:3333'}/movies/${
-          movie.movieId
-        }`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      await mmlApi.delete(`/movies/${movie.movieId}`);
       await getWatchedMovies();
     } catch (error) {
       console.log(error);
@@ -61,17 +48,8 @@ function WatchedList() {
   }
   async function handleAddToWatch(movie: Data) {
     try {
-      const response = await axios.put(
-        `${process.env.REACT_APP_API_URL || 'http://localhost:3333'}/movies/${
-          movie.movieId
-        }`,
-        { status: 'PLAN_TO_WATCH' },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      await mmlApi.put(`/movies/${movie.movieId}`, { status: 'PLAN_TO_WATCH' });
       await getWatchedMovies();
-      console.log(response);
     } catch (error) {
       console.log(error);
     }
