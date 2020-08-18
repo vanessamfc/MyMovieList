@@ -66,16 +66,20 @@ function Home() {
         </div>
         <PerfectScrollbar>
           {!error ? (
-            movies?.map((movie) => (
-              <Link to={`/movie/${movie.imdbID}`}>
-                {movie.Poster === 'N/A' ? (
-                  <img src={defaultImg} alt="movie poster" />
-                ) : (
-                  <img src={movie.Poster} alt="movie poster" />
-                )}
-                <h1>{movie.Title}</h1>
-              </Link>
-            ))
+            movies ? (
+              movies?.map((movie) => (
+                <Link key={movie.imdbID} to={`/movie/${movie.imdbID}`}>
+                  {movie.Poster === 'N/A' ? (
+                    <img src={defaultImg} alt="movie poster" />
+                  ) : (
+                    <img src={movie.Poster} alt="movie poster" />
+                  )}
+                  <h1>{movie.Title}</h1>
+                </Link>
+              ))
+            ) : (
+              <></>
+            )
           ) : (
             <h1>
               Sorry, we didn't find the movie you're looking for. Please, check

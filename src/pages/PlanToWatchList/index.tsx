@@ -62,7 +62,7 @@ function PlanToWatchList() {
       <Container>
         <ul>
           {planToWatchMovies.map((movie) => (
-            <div key={movie.movie?.imdbID}>
+            <div key={movie.movieId}>
               <Link to={`/movie/${movie.movieId}`}>
                 <img src={movie.movie?.Poster} alt="" />
                 <li>{movie.movie?.Title}</li>

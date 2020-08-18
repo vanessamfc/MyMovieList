@@ -57,7 +57,7 @@ function WatchedList() {
       <Container>
         <ul>
           {watchedMovies.map((movie) => (
-            <div>
+            <div key={movie.movieId}>
               <Link to={`/movie/${movie.movieId}`}>
                 <img src={movie.movie?.Poster} alt="" />
                 <p>{movie.movie?.Title}</p>
