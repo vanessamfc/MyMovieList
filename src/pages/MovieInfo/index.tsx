@@ -77,7 +77,9 @@ function MovieInfo() {
       const { data } = await mmlApi.get(`/movies/${movie?.imdbID}`);
       setMovieInData(data);
     } catch (error) {
-      toast.error('Sorry, an error occurred loading this page');
+      if (error.response.status !== 404) {
+        toast.error('Sorry, an error occurred loading this page');
+      }
     }
   }
 
@@ -97,7 +99,7 @@ function MovieInfo() {
               <h1>Ratings:</h1>
               <>
                 {movie?.Ratings.map((item) => (
-                  <p>
+                  <p key={item.Source}>
                     {item.Source}: {item.Value}
                   </p>
                 ))}
