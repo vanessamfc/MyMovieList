@@ -35,7 +35,9 @@ export default function user(state: UserState = INITIAL_STATE, action: Action) {
         break;
       case 'persist/REHYDRATE':
         {
-          mmlApi.defaults.headers.Authorization = `Bearer ${action.payload.user.token}`;
+          if (action.payload) {
+            mmlApi.defaults.headers.Authorization = `Bearer ${action.payload.user.token}`;
+          }
         }
         break;
 
