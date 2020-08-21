@@ -19,7 +19,7 @@ $ cd MyMovieList
 
 the application will try to connect to the server hosted in this [link](https://mmlapi.projectargos.tech/).
 
-however, if you wish to run the server on your own machine here is the [Link da API](https://mmlapi.projectargos.tech/) with the installation instructions.
+however, if you wish to run the server on your own machine here is the [API](https://mmlapi.projectargos.tech/) with the installation instructions.
 
 After following the server instalations steps, add the envroiment variable `REACT_APP_API_URL` in your `.env`.
 
