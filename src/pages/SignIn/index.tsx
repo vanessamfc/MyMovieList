@@ -38,11 +38,12 @@ export default function SingUp() {
     <>
       <SignInContainer>
         <div>
-          <h1>Sign In</h1>
+          <h1>Login</h1>
 
           <input
             type="text"
             placeholder="E-mail"
+            data-cy="login-email-input"
             value={email}
             onChange={(e) => {
               setEmail(e.target.value);
@@ -51,6 +52,7 @@ export default function SingUp() {
           <input
             type="password"
             placeholder="Password"
+            data-cy="login-password-input"
             value={password}
             onChange={(e) => {
               setPassword(e.target.value);
@@ -59,9 +61,10 @@ export default function SingUp() {
           <StyledButton
             variant="contained"
             color="primary"
+            data-cy="login-button"
             onClick={handleSubmit}
           >
-            Sign Up
+            Login
           </StyledButton>
           <div>
             <span>Dont have a account?</span>

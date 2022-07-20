@@ -47,7 +47,7 @@ export default function RouteWrapper({
             </div>
             <div>
               <button onClick={handleLogout}>
-                <MdExitToApp />
+                <MdExitToApp id='exitButton' />
               </button>
             </div>
           </StyledNavbar>

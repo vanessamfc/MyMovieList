@@ -34,6 +34,7 @@ export default function SingUp() {
       history.push('/');
     } catch (error) {
       toast.error('Failed to create account');
+      setLoading(false)
     }
     setLoading(true);
   }
@@ -47,6 +48,7 @@ export default function SingUp() {
             type="text"
             placeholder="Name"
             value={name}
+            data-cy="signUp-name-input"
             onChange={(e) => {
               setName(e.target.value);
             }}
@@ -54,6 +56,7 @@ export default function SingUp() {
           <input
             type="text"
             placeholder="E-mail"
+            data-cy="signUp-email-input"
             value={email}
             onChange={(e) => {
               setEmail(e.target.value);
@@ -61,6 +64,7 @@ export default function SingUp() {
           />
           <input
             type="password"
+            data-cy="signUp-password-input"
             placeholder="Password"
             value={password}
             onChange={(e) => {
@@ -71,6 +75,7 @@ export default function SingUp() {
           <StyledButton
             variant="contained"
             color="primary"
+            data-cy="signUp-button"
             onClick={handleSubmit}
           >
             Sign Up

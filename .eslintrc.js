@@ -3,4 +3,6 @@ module.exports = {
   rule: {
     'no-param-reassign': 'off',
   },
+
+  plugins: ['cypress'],
 };
