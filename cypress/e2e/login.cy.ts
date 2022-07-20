@@ -1,11 +1,13 @@
+import locators from '../support/locators'
+
 describe('Login', () => {
 
   beforeEach(() => {
     cy.visit('/sign-in')
-    cy.get('[type="text"]').type('vanessamfc@outlook.com')
-    cy.get('[type="password"]').type('12345678')
-    cy.get('.MuiButton-label').click()
-  })
+    cy.get(locators.login.email).type('vanessamfc@outlook.com')
+    cy.get(locators.login.password).type('12345678')
+    cy.get(locators.login.loginButton).click()
+  }) 
 
   it('Should Login', () => {
     cy.get('#exitButton').should(() => {
