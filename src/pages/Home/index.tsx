@@ -55,6 +55,7 @@ function Home() {
           <h1>Search for a movie!</h1>
           <StyledInput
             type="text"
+            data-cy="home-search-input"
             value={search}
             inputRef={debounceinput}
             minLength={3}
