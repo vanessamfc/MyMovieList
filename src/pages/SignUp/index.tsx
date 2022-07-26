@@ -32,11 +32,12 @@ export default function SingUp() {
       });
       toast.success('Your account has been successfully created');
       history.push('/');
-    } catch (error) {
-      toast.error('Failed to create account');
+
       setLoading(false)
+    } catch (error) {
+      setLoading(false)
+      toast.error('Failed to create account');
     }
-    setLoading(true);
   }
 
   return (
