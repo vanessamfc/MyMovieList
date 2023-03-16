@@ -1,7 +1,7 @@
 # My Movie List
 ## About
 
-My Movie List is a application that allow user to search for movies and add them to a Watched list or a Plan to watch list.
+My Movie List is an application that allows users to search for movies and add them to a Watched list or a Plan to watch list.
 
 ![My Movie List](/readmeImg/MyMovieList.gif?raw=true 'My Movie List')
 
