@@ -1,5 +1,4 @@
 # My Movie List
-Demo: [![Netlify Status](https://api.netlify.com/api/v1/badges/75225cda-26da-4cf5-9585-d67f5bc45d23/deploy-status)](https://mml.vanessamfc.site)
 ## About
 
 My Movie List is a application that allow user to search for movies and add them to a Watched list or a Plan to watch list.
